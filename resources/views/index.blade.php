@@ -70,6 +70,7 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+						<a href="{{ url('/users') }}">Users</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -83,11 +84,9 @@
                 </div>
 
                 <div class="links">
-                    <a href="/photo">Photo</a>
-                    <a href="/login">Log in</a>
-                    <a href="/signup">Sign up</a>
-                    <a href="https://forge.laravel.com">Forge 11111111</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+					<a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Register</a>
+                    <a href="{{ route('users') }}">Users</a>
                 </div>
             </div>
         </div>

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+
+use App\User;
+
 class UsersController extends Controller
 {
     /**
@@ -13,7 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $data = [
+       /* $data = [
 			'users' => array(
 				array('name' => "user 1", "description"  => "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.", "avatar" => "https://www.w3schools.com/bootstrap/img_avatar1.png"),
 				array('name' => "user 2", "description"  => "Lorem Ipsum has been the industry's standard dummy text  to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.", "avatar" => "https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"),
@@ -22,7 +26,9 @@ class UsersController extends Controller
 			)
 		];
 		
-        return view('users.users', $data);
+        return view('users.users', $data);*/
+		
+    	return view('users.users', array('users' => User::all()) );
     }
 
     /**
