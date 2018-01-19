@@ -84,8 +84,7 @@
                 </div>
 
                 <div class="links">
-					<a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('register') }}">Register</a>
+					          <a href="{{ route('account') }}">Account</a>
                     <a href="{{ route('users') }}">Users</a>
                 </div>
             </div>

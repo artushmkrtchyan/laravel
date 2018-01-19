@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Redirect;
+
+use Illuminate\Support\Facades\Storage;
 
 use Auth;
 
@@ -49,7 +55,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+      $user = User::findOrNew($id);
+
+      return view('users.user', ['user' => $user]);
     }
 
     /**
@@ -60,7 +68,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+      $user = User::findOrNew($id);
+
+      return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -70,10 +80,43 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+     public function update(Request $request, $id)
+     {
+
+         $user = User::find($id);
+
+         $user->name = $request->input('name');
+
+         if($user->email !== $request->input('email'))
+         {
+             $user->email = $request->input('email');
+         }
+
+         if($request->input('description') && $request->input('description') != '')
+         {
+             $user->description = $request->input('description');
+         }
+
+         if($request->hasfile('avatar')) {
+
+       			$avatar = $request->file('avatar');
+
+       			$filename = time() . '-' . $request->input('name') . '.' . $avatar->getClientOriginalExtension();
+       			//Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename) );
+
+       			$uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
+
+       			$path = $request->avatar->storeAs($uploadsFolder, $filename);
+
+            Storage::delete($uploadsFolder."/".$user->avatar);
+
+            $user->avatar = $filename;
+     		}
+
+         $user->save();
+
+         return Redirect::to('/users');
+     }
 
     /**
      * Remove the specified resource from storage.
@@ -83,6 +126,14 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $user = User::find($id);
+      
+      $uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
+
+      Storage::delete($uploadsFolder."/".$user->avatar);
+
+      $user->delete();
+
+      return Redirect::to('/users');
     }
 }

@@ -68,29 +68,30 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'description' => $data['description'],
-			'avatar' => $data['avatar'],   
+			'avatar' => $data['avatar'],
         ]);
     }*/
-	
+
 	protected function create(array $data)
 	{
 		$request = app('request');
-		$filename = '';
-		
+		$filename = 'default.jpg';
+
 		if($request->hasfile('avatar')) {
 			$avatar = $request->file('avatar');
 			$filename = time() . '-' . $data['name'] . '.' . $avatar->getClientOriginalExtension();
 			//Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename) );
-			
+
 			$uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
-			
+
 			$path = $request->avatar->storeAs($uploadsFolder, $filename);
-		} 
+		}
+    
 		return User::create([
 			'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'description' => $data['description'],
+      'email' => $data['email'],
+      'password' => bcrypt($data['password']),
+      'description' => $data['description'],
 			'avatar' => $filename,
 		]);
 	}
