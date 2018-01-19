@@ -8,7 +8,7 @@
 			@foreach ($users as $user)
 				<div class="media">
 					<div class="media-left">
-					  <img src="{{ $user['avatar'] }}" class="media-object" style="width:60px">
+					  <img src="{{ Storage::url('/uploads/avatars/'.$user["avatar"]) }}" class="media-object" style="width:60px">
 					</div>
 					<div class="media-body">
 					  <h4 class="media-heading">{{ $user['name'] }}</h4>
@@ -20,5 +20,3 @@
 		</div>
 	</div>
 @stop
-
-

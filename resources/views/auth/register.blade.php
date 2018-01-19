@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -60,6 +60,22 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+						
+						<div class="form-group">
+                            <label for="description" class="col-md-4 control-label">Description</label>
+
+                            <div class="col-md-6">
+                                <textarea rows="3" cols="50" class="form-control" name="description"></textarea>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label for="avatar" class="col-md-4 control-label">Avatar</label>
+
+                            <div class="col-md-6">
+                                <input type="file" name="avatar">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -68,6 +84,11 @@
                                 </button>
                             </div>
                         </div>
+						
+						
+						
+						<img src="{{ Storage::url('/uploads/avatars/1516349746-test.jpg') }}" alt="guillermo_rojas" width="75" class="is-circle is-outlined bg-white">
+						
                     </form>
                 </div>
             </div>
