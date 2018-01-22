@@ -127,10 +127,11 @@ class UsersController extends Controller
     public function destroy($id)
     {
       $user = User::find($id);
-      
-      $uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
+      if($user->avatar && $user->avatar != 'default.jpg'){
+        $uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
 
-      Storage::delete($uploadsFolder."/".$user->avatar);
+        Storage::delete($uploadsFolder."/".$user->avatar);
+      }
 
       $user->delete();
 

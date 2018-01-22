@@ -42,3 +42,35 @@ Route::post('/users/delete/{id}', [
     'uses' => 'UsersController@destroy',
     'as' => 'users.delete'
 ]);
+
+//Route::resource('posts', 'PostController');
+
+Route::get('/posts', 'PostController@index')->name('posts');
+
+//Route::post('/posts/create', 'PostController@create')->name('posts.create');
+Route::get('/posts/create', 'PostController@createForm');
+
+Route::post('/posts/create', [
+    'uses' => 'PostController@create',
+    'as' => 'posts.create'
+]);
+
+Route::get('/post/{id}', [
+    'middleware' => 'auth',
+    'uses' => 'PostController@show'
+]);
+
+Route::get('/post/edit/{id}', [
+    'middleware' => 'auth',
+    'uses' => 'PostController@edit'
+]);
+
+Route::post('/post/edit/{id}', [
+    'uses' => 'PostController@update',
+    'as' => 'post.update'
+]);
+
+Route::post('/post/delete/{id}', [
+    'uses' => 'postController@destroy',
+    'as' => 'post.delete'
+]);
