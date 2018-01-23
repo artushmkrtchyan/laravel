@@ -57,7 +57,8 @@ Route::post('/posts/create', [
 
 Route::get('/post/{id}', [
     'middleware' => 'auth',
-    'uses' => 'PostController@show'
+    'uses' => 'PostController@show',
+    'as' => 'post.show'
 ]);
 
 Route::get('/post/edit/{id}', [

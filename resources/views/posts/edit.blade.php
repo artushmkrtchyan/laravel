@@ -43,7 +43,7 @@
 
                         <div class="form-group">
                            <label for="image" class="col-md-2 control-label">Status</label>
-                           <?php $checked = $post->title ? 'checked' : '' ?>
+                           <?php $checked = $post->status == 'publish' ? 'checked' : '' ?>
                            <div class="col-md-9">
                                <input type="checkbox" name="status" value="publish" {{$checked}}>
                            </div>

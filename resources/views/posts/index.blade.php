@@ -12,7 +12,12 @@
 						  <img src="{{ Storage::url('/uploads/posts/'.$post->image) }}" class="media-object" style="width:100px">
 						</div>
 						<div class="media-body">
-						  <h4 class="media-heading">{{ $post->title }}</h4>
+              <a href="{{ route('post.show', $post->id ) }}">
+                  <h4 class="media-heading">{{ $post->title }}</h4>
+                  <p class="teaser">
+                     {{  str_limit($post->content, 100) }}
+                  </p>
+              </a>
 						</div>
 					</div>
 					<div class="posts-list-bottom">
@@ -33,6 +38,9 @@
 					</div>
 					<hr>
 				@endforeach
+        <div class="text-center">
+            {!! $posts->links() !!}
+        </div>
 			</div>
 		</div>
 	</div>

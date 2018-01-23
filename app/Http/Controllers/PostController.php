@@ -23,12 +23,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index', array('posts' => Post::all()));
+        //return view('posts.index', array('posts' => Post::all()));
+        $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(5);
+        return view('posts.index', compact('posts'));
     }
 
     public function createForm()
     {
-        return view('posts.create', array('posts' => 'add' ));
+        return view('posts.create');
     }
 
     /**

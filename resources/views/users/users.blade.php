@@ -34,6 +34,9 @@
 					</div>
 					<hr>
 				@endforeach
+				<div class="text-center">
+            {!! $users->links() !!}
+        </div>
 			</div>
 		</div>
 	</div>

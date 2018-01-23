@@ -23,7 +23,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-    	return view('users.users', array('users' => User::all()) );
+      $users = User::orderby('id', 'desc')->paginate(5);
+    	return view('users.users', array('users' => $users) );
     }
 
     /**
