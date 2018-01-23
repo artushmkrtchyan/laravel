@@ -43,11 +43,9 @@ Route::post('/users/delete/{id}', [
     'as' => 'users.delete'
 ]);
 
-//Route::resource('posts', 'PostController');
 
 Route::get('/posts', 'PostController@index')->name('posts');
 
-//Route::post('/posts/create', 'PostController@create')->name('posts.create');
 Route::get('/posts/create', 'PostController@createForm');
 
 Route::post('/posts/create', [
@@ -74,4 +72,35 @@ Route::post('/post/edit/{id}', [
 Route::post('/post/delete/{id}', [
     'uses' => 'postController@destroy',
     'as' => 'post.delete'
+]);
+
+
+Route::get('/category', 'CategoryController@index')->name('posts');
+
+Route::get('/category/create', 'CategoryController@createForm');
+
+Route::post('/category/create', [
+    'uses' => 'CategoryController@create',
+    'as' => 'category.create'
+]);
+
+Route::get('/category/{id}', [
+    'middleware' => 'auth',
+    'uses' => 'CategoryController@show',
+    'as' => 'category.show'
+]);
+
+Route::get('/category/edit/{id}', [
+    'middleware' => 'auth',
+    'uses' => 'CategoryController@edit'
+]);
+
+Route::post('/category/edit/{id}', [
+    'uses' => 'CategoryController@update',
+    'as' => 'category.update'
+]);
+
+Route::post('/category/delete/{id}', [
+    'uses' => 'CategoryController@destroy',
+    'as' => 'category.delete'
 ]);
