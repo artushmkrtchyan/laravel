@@ -39,14 +39,14 @@
                            </div>
                          </div>
 
-                           @if (count($categoryes) > 1)
+                           @if (count($categories) > 1)
 
                              <div class="form-group">
                                <label for="parent" class="col-md-2 control-label">Parent</label>
 
                                <div class="col-md-9">
                                  <select name="parent">
-                                     @foreach ($categoryes as $category)
+                                     @foreach ($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                      @endforeach
                                 </select>

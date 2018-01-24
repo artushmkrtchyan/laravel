@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="categoryes-list">
-        @foreach ($categoryes as $category)
+        @foreach ($categories as $category)
 					<div class="media">
 						<div class="media-body">
               <a href="{{ route('category.show', $category->id ) }}">
@@ -33,7 +33,7 @@
 					<hr>
 				@endforeach
         <div class="text-center">
-            {!! $categorys->links() !!}
+            {!! $categories->links() !!}
         </div>
 			</div>
 		</div>

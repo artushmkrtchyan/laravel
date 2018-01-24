@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 
 use App\Category_relationships;
 
-use App\Categorys;
+use App\Categories;
 
 class CategoryController extends Controller
 {
@@ -19,9 +19,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-      $categoryes = Categorys::orderby('id', 'desc')->paginate(5);
-      if(count($categoryes) > 1){
-        return view('category.index', compact('categoryes'));
+      $categories = Categories::orderby('id', 'desc')->paginate(5);
+      if(count($categories) > 1){
+        return view('category.index', compact('categories'));
       }else{
         return Redirect::to('/category/create');
       }
@@ -30,9 +30,9 @@ class CategoryController extends Controller
 
     public function createForm()
     {
-        $categoryes = Categorys::orderby('id', 'desc');
-        
-        return view('category.create', compact('categoryes'));
+        $categories = Categories::orderby('id', 'desc');
+
+        return view('category.create', compact('categories'));
     }
 
     /**
