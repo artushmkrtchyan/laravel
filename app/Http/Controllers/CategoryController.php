@@ -27,7 +27,6 @@ class CategoryController extends Controller
       }
     }
 
-
     public function createForm()
     {
         $categories = Categories::orderby('id', 'desc');
