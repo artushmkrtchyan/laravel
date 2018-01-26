@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Redirect;
 
-use App\Category_relationships;
+use App\CategoryTaxonomy;
 
 use App\Categories;
 
@@ -41,7 +41,22 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $request = app('request');
+
+        $category = Categories::create([
+          'name' => $request->input('name'),
+          'slug' => $request->input('slug'),
+        ]);
+
+        $category_id = $category->id;
+
+        CategoryTaxonomy::create([
+          'category_id' => $category_id,
+          'parent' => $request->input('parent'),
+          'order' => $request->input('order'),
+        ]);
+
+        return Redirect::to('/category/create');
     }
 
     /**

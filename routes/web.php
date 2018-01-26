@@ -75,7 +75,7 @@ Route::post('/post/delete/{id}', [
 ]);
 
 
-Route::get('/category', 'CategoryController@index')->name('posts');
+Route::get('/category', 'CategoryController@index')->name('category');
 
 Route::get('/category/create', 'CategoryController@createForm');
 

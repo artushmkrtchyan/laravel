@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryRelationshipsTable extends Migration
+class CategoryTaxonomyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCategoryRelationshipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_relationships', function (Blueprint $table) {
+        Schema::create('category_taxonomy', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('category_id');
-            $table->integer('parent');
-            $table->integer('order');
+            $table->integer('parent')->nullable();
+            $table->integer('order')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateCategoryRelationshipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_relationships');
+        Schema::dropIfExists('category_taxonomy');
     }
 }
