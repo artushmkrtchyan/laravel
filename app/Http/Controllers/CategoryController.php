@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Redirect;
 
+use Illuminate\Support\Facades\DB;
+
 use App\CategoryTaxonomy;
 
 use App\Categories;
@@ -89,7 +91,14 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        
+      $category = Categories::find($id);
+
+      $taxonomy = DB::select('select * from category_taxonomy where category_id = ?', [$id]);
+      $taxonomy = $taxonomy[0];
+
+      $categories = Categories::all();
+
+      return view('category.edit', array('category' => $category, 'taxonomy' => $taxonomy, 'categories' => $categories));
     }
 
     /**
@@ -101,7 +110,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+      $category = Categories::find($id);
+
+      $category->name = $request->input('name');
+
+      $category->slug = $request->input('slug');
+
+      $category->save();
+
+      $parent = $request->input('parent');
+
+      $order = $request->input('order');
+
+      DB::table('category_taxonomy')->where('category_id', $id)->update(['parent' => $parent, 'order' => $order]);
+
+      return Redirect::to('/category');
     }
 
     /**
@@ -112,6 +136,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $categories = Categories::find($id);
+
+      $categories->delete();
+
+      $category_taxonomy = CategoryTaxonomy::where('category_id', $id);
+      $category_taxonomy->delete();
+
+      return Redirect::to('/category');
     }
 }

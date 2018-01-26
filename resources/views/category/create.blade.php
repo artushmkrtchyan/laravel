@@ -46,6 +46,7 @@
 
                                <div class="col-md-9">
                                  <select name="parent">
+                                   <option value="">No parent</option>
                                      @foreach ($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                      @endforeach
