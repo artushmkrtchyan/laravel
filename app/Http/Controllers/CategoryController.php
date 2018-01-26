@@ -29,8 +29,8 @@ class CategoryController extends Controller
 
     public function createForm()
     {
-        $categories = Categories::orderby('id', 'desc');
-
+        $categories = Categories::all();
+        
         return view('category.create', compact('categories'));
     }
 
