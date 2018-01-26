@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function createForm()
     {
         $categories = Categories::all();
-        
+
         return view('category.create', compact('categories'));
     }
 
@@ -89,7 +89,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
