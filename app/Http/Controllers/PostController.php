@@ -8,7 +8,13 @@ use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Post;
+
+use App\Categories;
+
+use App\CategoryPost;
 
 use Auth;
 
@@ -30,7 +36,9 @@ class PostController extends Controller
 
     public function createForm()
     {
-        return view('posts.create');
+        $categories = Categories::all();
+
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -57,13 +65,22 @@ class PostController extends Controller
           $path = $request->image->storeAs($uploadsFolder, $filename);
         }
 
-        Post::create([
-          'title' => $request->input('title'),
-          'content' => $request->input('content'),
-          'status' => $status,
-          'author_id' => $author_id,
-          'image' => $filename,
-        ]);
+        $post = Post::create([
+                  'title' => $request->input('title'),
+                  'content' => $request->input('content'),
+                  'status' => $status,
+                  'author_id' => $author_id,
+                  'image' => $filename,
+                ]);
+
+        if($categories = $request->input('catedories')){
+          foreach ($categories as $item) {
+            CategoryPost::create([
+              'post_id' => $post->id,
+              'category_id' => $item,
+            ]);
+          }
+        }
 
         return Redirect::to('/posts/create');
     }
@@ -101,7 +118,14 @@ class PostController extends Controller
     public function edit($id)
     {
       $post = Post::find($id);
-      return view('posts.edit', array('post' => $post));
+
+      $categories = Categories::all();
+
+    //  $category_post = DB::table('category_post')->where('post_id', $id);
+
+      $category_post = CategoryPost::where('post_id', $id);
+
+      return view('posts.edit', array('post' => $post, 'categories' => $categories, 'category_post' => $category_post));
     }
 
     /**
@@ -144,6 +168,19 @@ class PostController extends Controller
 
       $post->save();
 
+      if($categories = $request->input('catedories')){
+
+        $delete = CategoryPost::where('post_id', $id);
+        $delete->delete();
+
+        foreach ($categories as $item) {
+          CategoryPost::create([
+            'post_id' => $post->id,
+            'category_id' => $item,
+          ]);
+        }
+      }
+
       return Redirect::to('/posts');
     }
 
@@ -163,6 +200,9 @@ class PostController extends Controller
       }
 
       $post->delete();
+
+      $delete = CategoryPost::where('post_id', $id);
+      $delete->delete();
 
       return Redirect::to('/posts');
     }

@@ -12,7 +12,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-2 control-label">Name</label>
+                            <label for="title" class="col-md-2 control-label">Title</label>
 
                             <div class="col-md-9">
                                 <input id="title" type="text" class="form-control" name="title" value="" required autofocus>
@@ -42,17 +42,30 @@
                         </div>
 
                         <div class="form-group">
-                           <label for="image" class="col-md-2 control-label">Status</label>
+                           <label for="image" class="col-md-3 control-label">Status publish</label>
 
                            <div class="col-md-9">
                                <input type="checkbox" name="status" value="publish">
                            </div>
                        </div>
 
+                       <div class="form-group ">
+                           <div class="col-md-offset-1">
+                             <h2>Category</h2>
+                             @foreach ($categories as $category)
+                               <div class="form-check">
+                                 <label>
+                                   <input type="checkbox" name="catedories[]" value="{{$category->id}}"> <span class="label-text">{{$category->name}}</span>
+                                 </label>
+                               </div>
+                             @endforeach
+                           </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-2">
                                 <button type="submit" class="btn btn-primary">
-                                    Add
+                                    Add post
                                 </button>
                             </div>
                         </div>

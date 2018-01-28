@@ -49,10 +49,30 @@
                            </div>
                        </div>
 
+                       <div class="form-group ">
+                           <div class="col-md-offset-1">
+                             <h2>Category</h2>
+                             @foreach ($categories as $category)
+                             <?php $check = ''; ?>
+                              @foreach ($category_post as $item)
+                              <?php
+                              if($item->category_id == $category->id){
+                                $check = 'checked';
+                              }?>
+                              @endforeach
+                               <div class="form-check">
+                                 <label>
+                                   <input type="checkbox" name="catedories[]" value="{{$category->id}}" {{$check}}> <span class="label-text">{{$category->name}}</span>
+                                 </label>
+                               </div>
+                             @endforeach
+                           </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-2">
                                 <button type="submit" class="btn btn-primary">
-                                    Edit
+                                    Edit post
                                 </button>
                             </div>
                         </div>
