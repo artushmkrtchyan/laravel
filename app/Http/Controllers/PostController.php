@@ -121,9 +121,7 @@ class PostController extends Controller
 
       $categories = Categories::all();
 
-    //  $category_post = DB::table('category_post')->where('post_id', $id);
-
-      $category_post = CategoryPost::where('post_id', $id);
+     $category_post = DB::select('select * from category_post where post_id = ?', [$id]);
 
       return view('posts.edit', array('post' => $post, 'categories' => $categories, 'category_post' => $category_post));
     }
