@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\DB;
 
-use App\Post;
+use App\Models\Post;
 
-use App\Categories;
+use App\Models\Categories;
 
-use App\CategoryPost;
+use App\Models\CategoryPost;
 
 use Auth;
 
-use App\User;
+use App\Models\User;
 
 class PostController extends Controller
 {

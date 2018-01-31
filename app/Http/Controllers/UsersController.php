@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 use Auth;
 
-use App\User;
+use App\Models\User;
 
 class UsersController extends Controller
 {

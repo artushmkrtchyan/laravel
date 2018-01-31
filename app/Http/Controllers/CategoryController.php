@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Support\Facades\DB;
 
-use App\CategoryTaxonomy;
+use App\Models\CategoryTaxonomy;
 
-use App\Categories;
+use App\Models\Categories;
 
 class CategoryController extends Controller
 {
