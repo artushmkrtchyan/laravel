@@ -27,11 +27,11 @@
 								<button type="submit" class="btn btn-default btn-sm">Delete</button>
 						</form>
 
-						<a href="{{ url('/post/edit/'.$post->id) }}">
+						<a href="{{ url('/admin/post/edit/'.$post->id) }}">
 							<button type="button" class="btn btn-default btn-sm">Edit</button>
 						</a>
 
-						<a href="{{ url('/post/'.$post->id) }}">
+						<a href="{{ url('/admin/post/'.$post->id) }}">
 							<button type="button" class="btn btn-default btn-sm">Viwe</button>
 						</a>
 

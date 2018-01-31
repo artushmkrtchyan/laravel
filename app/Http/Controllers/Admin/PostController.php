@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
@@ -31,14 +33,14 @@ class PostController extends Controller
     {
         //return view('posts.index', array('posts' => Post::all()));
         $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(5);
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     public function createForm()
     {
         $categories = Categories::all();
 
-        return view('posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -82,7 +84,7 @@ class PostController extends Controller
           }
         }
 
-        return Redirect::to('/posts/create');
+        return Redirect::to('/admin/posts/create');
     }
 
     /**
@@ -106,7 +108,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $user = User::find($post->author_id);
-        return view('posts.show', array('post' => $post, 'user' => $user));
+        return view('admin.posts.show', array('post' => $post, 'user' => $user));
     }
 
     /**
@@ -123,7 +125,7 @@ class PostController extends Controller
 
      $category_post = DB::select('select * from category_post where post_id = ?', [$id]);
 
-      return view('posts.edit', array('post' => $post, 'categories' => $categories, 'category_post' => $category_post));
+      return view('admin.posts.edit', array('post' => $post, 'categories' => $categories, 'category_post' => $category_post));
     }
 
     /**
@@ -179,7 +181,7 @@ class PostController extends Controller
         }
       }
 
-      return Redirect::to('/posts');
+      return Redirect::to('/admin/posts');
     }
 
     /**
@@ -202,6 +204,6 @@ class PostController extends Controller
       $delete = CategoryPost::where('post_id', $id);
       $delete->delete();
 
-      return Redirect::to('/posts');
+      return Redirect::to('/admin/posts');
     }
 }

@@ -21,11 +21,11 @@
 								<button type="submit" class="btn btn-default btn-sm">Delete</button>
 						</form>
 
-						<a href="{{ url('/category/edit/'.$category->id) }}">
+						<a href="{{ url('/admin/category/edit/'.$category->id) }}">
 							<button type="button" class="btn btn-default btn-sm">Edit</button>
 						</a>
 
-						<a href="{{ url('/category/'.$category->id) }}">
+						<a href="{{ url('/admin/category/'.$category->id) }}">
 							<button type="button" class="btn btn-default btn-sm">Viwe</button>
 						</a>
 

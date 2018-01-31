@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
@@ -23,9 +25,9 @@ class CategoryController extends Controller
     {
       $categories = Categories::orderby('id', 'desc')->paginate(5);
       if(count($categories) > 1){
-        return view('category.index', compact('categories'));
+        return view('admin.category.index', compact('categories'));
       }else{
-        return Redirect::to('/category/create');
+        return Redirect::to('/admin/category/create');
       }
     }
 
@@ -33,7 +35,7 @@ class CategoryController extends Controller
     {
         $categories = Categories::all();
 
-        return view('category.create', compact('categories'));
+        return view('admin.category.create', compact('categories'));
     }
 
     /**
@@ -58,7 +60,7 @@ class CategoryController extends Controller
           'order' => $request->input('order'),
         ]);
 
-        return Redirect::to('/category/create');
+        return Redirect::to('/admin/category/create');
     }
 
     /**
@@ -98,7 +100,7 @@ class CategoryController extends Controller
 
       $categories = Categories::all();
 
-      return view('category.edit', array('category' => $category, 'taxonomy' => $taxonomy, 'categories' => $categories));
+      return view('admin.category.edit', array('category' => $category, 'taxonomy' => $taxonomy, 'categories' => $categories));
     }
 
     /**
@@ -125,7 +127,7 @@ class CategoryController extends Controller
 
       DB::table('category_taxonomy')->where('category_id', $id)->update(['parent' => $parent, 'order' => $order]);
 
-      return Redirect::to('/category');
+      return Redirect::to('/admin/category');
     }
 
     /**
@@ -143,6 +145,6 @@ class CategoryController extends Controller
       $category_taxonomy = CategoryTaxonomy::where('category_id', $id);
       $category_taxonomy->delete();
 
-      return Redirect::to('/category');
+      return Redirect::to('/admin/category');
     }
 }

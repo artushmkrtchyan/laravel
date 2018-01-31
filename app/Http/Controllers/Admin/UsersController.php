@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -24,7 +26,7 @@ class UsersController extends Controller
     public function index()
     {
       $users = User::orderby('id', 'desc')->paginate(5);
-    	return view('users.users', array('users' => $users) );
+    	return view('admin.users.index', array('users' => $users) );
     }
 
     /**
@@ -58,7 +60,7 @@ class UsersController extends Controller
     {
       $user = User::findOrNew($id);
 
-      return view('users.user', ['user' => $user]);
+      return view('admin.users.show', ['user' => $user]);
     }
 
     /**
@@ -71,7 +73,7 @@ class UsersController extends Controller
     {
       $user = User::findOrNew($id);
 
-      return view('users.edit', ['user' => $user]);
+      return view('admin.users.edit', ['user' => $user]);
     }
 
     /**
@@ -116,7 +118,7 @@ class UsersController extends Controller
 
          $user->save();
 
-         return Redirect::to('/users');
+         return Redirect::to('/admin/users');
      }
 
     /**
@@ -136,6 +138,6 @@ class UsersController extends Controller
 
       $user->delete();
 
-      return Redirect::to('/users');
+      return Redirect::to('/admin/users');
     }
 }
