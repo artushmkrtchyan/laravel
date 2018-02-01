@@ -1,15 +1,16 @@
-.nav-md .container.body .col-md-3.left_col {
+.nav-md .body .left_col {
     min-height: 100%;
     width: 230px;
     padding: 0;
-    position: absolute;
-    display: -ms-flexbox;
-    display: flex;
     z-index: 1;
 }
 
+
+
 .left_col {
     background: #2A3F54;
+    height: 100%;
+
 }
 
 .nav_title {
@@ -141,6 +142,9 @@
     padding: 4px;
 }
 
+.child_menu.open {
+  margin-left: 20px;
+}
 
 
 .users-list a {

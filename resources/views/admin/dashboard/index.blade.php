@@ -3,9 +3,7 @@
 @section('title', 'Dashboard...')
 
 @section('content')
-	<div class="container">
-		<div class="row">
-			ffffffffffff
-		</div>
+	<div class="col-md-10">
+			ffffffffffffyuk7tuy m6yuj67 1
 	</div>
 @stop

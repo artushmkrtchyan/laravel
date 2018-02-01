@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $(document).on('click', '.side-menu .fa-chevron-down', function () {
+  $(document).on('click', '#open_down', function () {
     if($('.side-menu .child_menu').hasClass('open')){
       $('.side-menu .child_menu').removeClass('open');
     }else{
