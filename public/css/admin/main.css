@@ -5,12 +5,21 @@
     z-index: 1;
 }
 
-
+.form-group {
+    margin-bottom: 20px;
+}
 
 .left_col {
     background: #2A3F54;
     height: 100%;
+}
 
+.right_col {
+  margin-top: 30px;
+}
+
+.right_col a{
+  text-decoration: none;
 }
 
 .nav_title {
@@ -172,4 +181,10 @@
 
 .posts-list-bottom a {
   margin-left: 7px;
+}
+
+@media (min-width: 768px){
+  .form-horizontal .control-label {
+      padding-top: 0;
+  }
 }

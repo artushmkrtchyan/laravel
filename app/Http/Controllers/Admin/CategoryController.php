@@ -14,6 +14,10 @@ use App\Models\CategoryTaxonomy;
 
 use App\Models\Categories;
 
+use Auth;
+
+use App\Models\User;
+
 class CategoryController extends Controller
 {
     /**
@@ -23,7 +27,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-      $categories = Categories::orderby('id', 'desc')->paginate(5);
+      $categories = Categories::orderby('id', 'desc')->paginate(10);
+
       if(count($categories) > 1){
         return view('admin.category.index', compact('categories'));
       }else{
@@ -100,7 +105,7 @@ class CategoryController extends Controller
 
       $categories = Categories::all();
 
-      return view('admin.category.edit', array('category' => $category, 'taxonomy' => $taxonomy, 'categories' => $categories));
+      return view('admin.category.edit', compact('category', 'taxonomy', 'categories'));
     }
 
     /**

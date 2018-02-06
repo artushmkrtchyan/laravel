@@ -31,8 +31,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //return view('posts.index', array('posts' => Post::all()));
-        $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(5);
+        $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(10);
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -107,8 +107,10 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $user = User::find($post->author_id);
-        return view('admin.posts.show', array('post' => $post, 'user' => $user));
+
+        $author = User::find($post->author_id);
+
+        return view('admin.posts.show', compact('post', 'author'));
     }
 
     /**
@@ -125,7 +127,7 @@ class PostController extends Controller
 
      $category_post = DB::select('select * from category_post where post_id = ?', [$id]);
 
-      return view('admin.posts.edit', array('post' => $post, 'categories' => $categories, 'category_post' => $category_post));
+      return view('admin.posts.edit', compact('post', 'categories', 'category_post'));
     }
 
     /**

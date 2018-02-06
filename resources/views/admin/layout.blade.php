@@ -57,11 +57,11 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="{{ Storage::url('/uploads/avatars/'.$user->avatar) }}" class="img-circle profile_img">
+                            <img src="{{ Storage::url('/uploads/avatars/'. Auth::user()->avatar) }}" class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2>{{$user->name}}</h2>
+                            <h2>{{ Auth::user()->name}}</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -92,9 +92,11 @@
             </div>
 
             <!-- page content -->
+            <div class="col-md-9">
               <div class="right_col" role="main">
                   @yield('content')
               </div>
+            </div>
             <!-- /page content -->
 
             <!-- footer content -->
