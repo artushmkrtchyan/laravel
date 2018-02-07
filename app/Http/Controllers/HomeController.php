@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Redirect;
+
 class HomeController extends Controller
 {
     /**
@@ -24,7 +26,9 @@ class HomeController extends Controller
      public function index(Request $request)
      {
 
-       $request->user()->authorizeRoles(['admin', 'editor', 'author', 'subscriber']);
+       if($request->user()->hasRole('admin')){
+         return Redirect::to('/admin');
+       }
 
        return view('home');
      }
