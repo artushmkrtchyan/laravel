@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -87,13 +88,17 @@ class RegisterController extends Controller
 			$path = $request->avatar->storeAs($uploadsFolder, $filename);
 		}
 
-		return User::create([
+		$user = User::create([
 			'name' => $data['name'],
       'email' => $data['email'],
       'password' => bcrypt($data['password']),
       'description' => $data['description'],
 			'avatar' => $filename,
 		]);
+
+    $user->roles()->attach(Role::where('name', 'subscriber')->first());
+
+    return $user;
 	}
 
 }

@@ -111,8 +111,9 @@ class UsersController extends Controller
        			$uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
 
        			$path = $request->avatar->storeAs($uploadsFolder, $filename);
-
-            Storage::delete($uploadsFolder."/".$user->avatar);
+            if($user->avatar){
+              Storage::delete($uploadsFolder."/".$user->avatar);
+            }
 
             $user->avatar = $filename;
      		}
