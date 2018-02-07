@@ -9,10 +9,15 @@ use Auth;
 
 use App\Models\User;
 
+use App\Models\Post;
+
 class DashboardController extends Controller
 {
     public function index()
     {
-      return view('admin.dashboard.index', array('user' => Auth::user()) );
+
+      $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(10);
+
+      return view('admin.dashboard.index', compact('posts'));
     }
 }
