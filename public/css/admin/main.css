@@ -22,6 +22,14 @@
   text-decoration: none;
 }
 
+select#shop{
+  min-width: 20%;
+}
+
+select#shop option {
+  padding: 5px;
+}
+
 .nav_title {
     width: 230px;
     float: left;

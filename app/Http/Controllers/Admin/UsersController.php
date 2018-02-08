@@ -151,7 +151,10 @@ class UsersController extends Controller
         Storage::delete($uploadsFolder."/".$user->avatar);
       }
 
+      $user->roles()->sync([]);
+
       $user->delete();
+
 
       return Redirect::to('/admin/users');
     }
