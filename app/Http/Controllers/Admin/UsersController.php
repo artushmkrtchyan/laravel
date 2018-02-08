@@ -16,6 +16,8 @@ use Auth;
 
 use App\Models\User;
 
+use App\Models\Role;
+
 class UsersController extends Controller
 {
     /**
@@ -74,7 +76,9 @@ class UsersController extends Controller
     {
       $user = User::findOrNew($id);
 
-      return view('admin.users.edit', ['user' => $user]);
+      $roles = Role::all();
+
+      return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -88,6 +92,11 @@ class UsersController extends Controller
      {
 
          $user = User::find($id);
+
+         foreach ($user->roles as $role)
+         {
+             $role_id = $role->id;
+         }
 
          $user->name = $request->input('name');
 
@@ -119,6 +128,10 @@ class UsersController extends Controller
      		}
 
          $user->save();
+
+         if($role_id != $request->input('role')){
+           $user->roles()->updateExistingPivot($role_id, ['role_id' => $request->input('role')]);
+         }
 
          return Redirect::to('/admin/users');
      }

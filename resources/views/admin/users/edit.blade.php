@@ -55,6 +55,24 @@
             </div>
 
             <div class="form-group">
+               <label for="avatar" class="col-md-4 control-label">Role</label>
+
+               <div class="col-md-6">
+
+                 <select name="role">
+                   <?php foreach($roles as $role){
+                     $selected = '';
+                     foreach ($user->roles as $user_role) {
+                       if($user_role->name == $role->name){
+                         $selected = 'selected';
+                       }
+                     }?>
+                      <option value="{{$role->id}}" {{$selected}}>{{ $role->name }}</option>
+                   <?php } ?>
+                </select>
+               </div>
+           </div>
+            <div class="form-group">
                 <div class="col-md-6 col-md-offset-4">
                     <button type="submit" class="btn btn-primary">
                         Update

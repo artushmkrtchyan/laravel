@@ -11,3 +11,4 @@ URL
 1 https://scotch.io/tutorials/user-authorization-in-laravel-54-with-spatie-laravel-permission
 2 https://github.com/caleboki/acl
 3.https://github.com/KodeBlog/Laradmin
+4.https://medium.com/@ezp127/laravel-5-4-native-user-authentication-role-authorization-3dbae4049c8a

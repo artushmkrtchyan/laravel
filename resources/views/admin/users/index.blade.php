@@ -13,6 +13,9 @@
 			<div class="media-body">
 			  <h4 class="media-heading">{{ $user['name'] }}</h4>
 			  <p>{{ $user['description'] }}</p>
+				@foreach ($user->roles as $role)
+					<p> Role: <span>{{ $role->name }}</span> </p>
+				@endforeach
 			</div>
 		</div>
 		<div class="users-list-bottom">
