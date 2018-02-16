@@ -18,7 +18,7 @@
 </head>
 <body class="nav-md">
     <div class="container-fluid body">
-        <div class="main_container">
+        <div class="main_container clearfix">
             <!-- top navigation -->
             <div class="top_nav">
                 <div class="nav_menu">
