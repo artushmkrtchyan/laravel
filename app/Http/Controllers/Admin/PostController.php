@@ -3,23 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Redirect;
-
 use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Support\Facades\DB;
-
 use App\Models\Post;
-
 use App\Models\Categories;
-
 use App\Models\CategoryPost;
-
 use Auth;
-
 use App\Models\User;
 
 class PostController extends Controller
@@ -170,10 +161,11 @@ class PostController extends Controller
 
       $post->save();
 
-      if($categories = $request->input('catedories')){
 
-        $delete = CategoryPost::where('post_id', $id);
-        $delete->delete();
+      if($categories = $request->input('catedories')){
+        
+        $delete_cat = CategoryPost::where('post_id', $id);
+        $delete_cat->delete();
 
         foreach ($categories as $item) {
           CategoryPost::create([
