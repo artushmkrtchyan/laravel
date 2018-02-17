@@ -21,4 +21,10 @@ Route::group(['prefix' => 'v1'], function()
 {
     Route::resource('posts', 'Api\PostController');
     Route::resource('products', 'Api\ProductController');
+
+    Route::post('login', 'API\UserController@login');
+    Route::post('register', 'API\UserController@register');
+    Route::group(['middleware' => 'auth:api'], function(){
+    	Route::post('details', 'API\UserController@details');
+    });
 });

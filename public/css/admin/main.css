@@ -1,9 +1,18 @@
+.container-fluid.body {
+  padding-left: 0;
+}
+
+.main_container>.col-md-2.left-col {
+  padding: 0;
+}
+
 .nav-md .body .left_col {
     min-height: 100%;
-    width: 230px;
+    width: 240px;
     padding: 0;
     z-index: 1;
     position: fixed;
+    padding-left: 10px;
 }
 
 .form-group {
