@@ -20,12 +20,19 @@ class PostController extends Controller
         $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(10);
 
         return response($posts->jsonSerialize(), Response::HTTP_OK);
+
     }
 
     public function show($id)
     {
-        $post = Post::find($id);
-        return response($post->jsonSerialize(), Response::HTTP_OK);
+        $post = Post::findOrFail($id);
+        //return response($post->jsonSerialize(), Response::HTTP_OK);
+
+        return response()->json([
+            'success' => true,
+            'status' => Response::HTTP_OK,
+            'data' => [$post]
+        ], Response::HTTP_OK);
     }
 
     public function store(Request $request)
@@ -133,6 +140,6 @@ class PostController extends Controller
 
         $delete = CategoryPost::where('post_id', $id);
         $delete->delete();
-        return response(null, Response::HTTP_OK);
+        return response()->json(['success' => true, 'status'=>Response::HTTP_OK,'message'=>$post->title.'. deleted'],  Response::HTTP_OK );
     }
 }

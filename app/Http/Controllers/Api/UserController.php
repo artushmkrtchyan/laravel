@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 
@@ -50,7 +51,7 @@ class UserController extends Controller
 
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return response()->json(['error'=>$validator->errors()], 401);
         }
 
 
@@ -74,5 +75,33 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
+    }
+
+    public function logout(Request $request)
+    {
+      if (!$this->guard()->check()) {
+          return response([
+              'message' => 'No active user session was found'
+          ], 404);
+      }
+
+      $request->user('api')->token()->revoke();
+
+      Auth::guard()->logout();
+
+      Session::flush();
+
+      Session::regenerate();
+
+      return response([
+          'success' => true,
+          'code' => 200,
+          'message' => 'User was logged out'
+      ]);
+    }
+
+    protected function guard()
+    {
+        return Auth::guard('api');
     }
 }

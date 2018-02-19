@@ -34,7 +34,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin
   Route::get('post/{id}', ['uses' => 'PostController@show', 'as' => 'post.show']);
   Route::get('post/edit/{id}', ['uses' => 'PostController@edit']);
   Route::post('post/edit/{id}', ['uses' => 'PostController@update', 'as' => 'post.update']);
-  Route::post('post/delete/{id}', ['uses' => 'postController@destroy', 'as' => 'post.delete']);
+  Route::post('post/delete/{id}', ['uses' => 'PostController@destroy', 'as' => 'post.delete']);
 
   Route::get('category', 'CategoryController@index')->name('category');
   Route::get('category/create', 'CategoryController@createForm')->name('category-create');

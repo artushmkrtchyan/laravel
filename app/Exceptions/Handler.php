@@ -4,6 +4,10 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +52,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // This will replace our 404 response with
+        // a JSON response.
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json(['success' => false, 'error'=>Response::HTTP_NOT_FOUND, 'message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+        }elseif ($exception instanceof NotFoundHttpException) {
+            return response()->json(['success' => false, 'error'=>Response::HTTP_NOT_FOUND,'message'=>'Please check the URL you submitted'], Response::HTTP_NOT_FOUND);
+        }elseif($exception instanceof AuthenticationException) {
+            return response()->json(['success' => false, 'error'=>Response::HTTP_FORBIDDEN,'message'=>'Unauthenticated.'],  Response::HTTP_FORBIDDEN );
+        }
+
+        // return response()->json(['message' => $exception->getMessage(), 'error' => Response::HTTP_BAD_REQUEST], Response::HTTP_BAD_REQUEST);
+
         return parent::render($request, $exception);
     }
 }

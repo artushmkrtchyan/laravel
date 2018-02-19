@@ -20,7 +20,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         return response($product->jsonSerialize(), Response::HTTP_OK);
     }
 
