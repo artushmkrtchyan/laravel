@@ -6,8 +6,9 @@
 <div class="posts-list">
   @foreach ($products as $product)
 		<div class="media">
-			<div class="media-left">
-			</div>
+      <div class="media-left">
+    	  <img src="{{ Storage::url('/uploads/products/'.$product->image) }}" class="media-object" style="width:300px">
+    	</div>
 			<div class="media-body">
         <a href="{{ route('product.show', $product->id ) }}">
             <h4 class="media-heading">{{ $product->name }}</h4>

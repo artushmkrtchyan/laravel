@@ -15,13 +15,15 @@ class ProductController extends Controller
     {
         $products = Product::orderby('id', 'desc')->paginate(10);
 
-        return response($products->jsonSerialize(), Response::HTTP_OK);
+        // return response($products->jsonSerialize(), Response::HTTP_OK);
+        return response()->apiJson(true, Response::HTTP_OK, $products);
     }
 
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return response($product->jsonSerialize(), Response::HTTP_OK);
+        // return response($product->jsonSerialize(), Response::HTTP_OK);
+        return response()->apiJson(true, Response::HTTP_OK, $product);
     }
 
     public function store(Request $request)
@@ -52,7 +54,8 @@ class ProductController extends Controller
         $shops = $request->input('shop');
         $product->shops()->sync($shops);
         $product->save();
-        return response($products->jsonSerialize(), Response::HTTP_CREATED);
+        // return response($products->jsonSerialize(), Response::HTTP_CREATED);
+        return response()->apiJson(true, Response::HTTP_CREATED, $products);
     }
 
     public function update(Request $request, $id)
@@ -98,7 +101,8 @@ class ProductController extends Controller
             $product->shops()->sync($shops);
         }
 
-        return response($product->jsonSerialize(), Response::HTTP_OK);
+        // return response($product->jsonSerialize(), Response::HTTP_OK);
+        return response()->apiJson(true, Response::HTTP_OK, $product);
     }
 
     public function destroy($id)
@@ -113,6 +117,7 @@ class ProductController extends Controller
         $product->delete();
 
         $product->shops()->sync([]);
-        return response(null, Response::HTTP_OK);
+        // return response(null, Response::HTTP_OK);
+        return response()->apiJson(true, Response::HTTP_OK, $product);
     }
 }

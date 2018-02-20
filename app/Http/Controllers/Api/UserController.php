@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -13,95 +14,33 @@ use Validator;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+      $users = User::orderby('id', 'desc')->paginate(10);
 
-
-    public $successStatus = 200;
-
-
-    /**
-     * login api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
-        }
-        else{
-            return response()->json(['error'=>'Unauthorised'], 401);
-        }
+      return response()->apiJson(true, Response::HTTP_OK, $users);
     }
 
-
-    /**
-     * Register api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
+    public function show($id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
-        ]);
+      $user = User::findOrFail($id);
 
+      return response()->apiJson(true, Response::HTTP_OK, $user);
+    }
 
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        if($user->avatar && $user->avatar != 'default.jpg'){
+          $uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
+
+          Storage::delete($uploadsFolder."/".$user->avatar);
         }
 
+        $user->roles()->sync([]);
 
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
+        $user->delete();
 
-
-        return response()->json(['success'=>$success], $this->successStatus);
-    }
-
-
-    /**
-     * details api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function details()
-    {
-        $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
-    }
-
-    public function logout(Request $request)
-    {
-      if (!$this->guard()->check()) {
-          return response([
-              'message' => 'No active user session was found'
-          ], 404);
-      }
-
-      $request->user('api')->token()->revoke();
-
-      Auth::guard()->logout();
-
-      Session::flush();
-
-      Session::regenerate();
-
-      return response([
-          'success' => true,
-          'code' => 200,
-          'message' => 'User was logged out'
-      ]);
-    }
-
-    protected function guard()
-    {
-        return Auth::guard('api');
+        return response()->apiJson(true, Response::HTTP_OK, $user);
     }
 }

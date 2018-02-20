@@ -19,7 +19,8 @@ class PostController extends Controller
     {
         $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(10);
 
-        return response($posts->jsonSerialize(), Response::HTTP_OK);
+        // return response($posts->jsonSerialize(), Response::HTTP_OK);
+        return response()->apiJson(true, Response::HTTP_OK, $posts);
 
     }
 
@@ -27,12 +28,8 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         //return response($post->jsonSerialize(), Response::HTTP_OK);
-
-        return response()->json([
-            'success' => true,
-            'status' => Response::HTTP_OK,
-            'data' => [$post]
-        ], Response::HTTP_OK);
+        // return response()->json(['success' => true,'status' => Response::HTTP_OK,'data' => [$post]], Response::HTTP_OK);
+        return response()->apiJson(true, Response::HTTP_OK, $post);
     }
 
     public function store(Request $request)
@@ -70,7 +67,9 @@ class PostController extends Controller
             ]);
           }
         }
-        return response($post->jsonSerialize(), Response::HTTP_CREATED);
+        // return response($post->jsonSerialize(), Response::HTTP_CREATED);
+        return response()->apiJson(true, Response::HTTP_CREATED, $post);
+
     }
 
     public function update(Request $request, $id)
@@ -124,7 +123,8 @@ class PostController extends Controller
             ]);
           }
         }
-        return response($post->jsonSerialize(), Response::HTTP_OK);
+        // return response($post->jsonSerialize(), Response::HTTP_OK);
+        return response()->apiJson(true, Response::HTTP_OK, $post);
     }
 
     public function destroy($id)
@@ -140,6 +140,7 @@ class PostController extends Controller
 
         $delete = CategoryPost::where('post_id', $id);
         $delete->delete();
-        return response()->json(['success' => true, 'status'=>Response::HTTP_OK,'message'=>$post->title.'. deleted'],  Response::HTTP_OK );
+        // return response()->json(['success' => true, 'status'=>Response::HTTP_OK,'message'=>$post->title.'. deleted'],  Response::HTTP_OK );
+        return response()->apiJson(true, Response::HTTP_OK, $post);
     }
 }

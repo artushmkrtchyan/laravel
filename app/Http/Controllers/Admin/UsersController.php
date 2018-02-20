@@ -3,19 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Redirect;
-
 use Illuminate\Support\Facades\Storage;
-
 use Auth;
-
 use App\Models\User;
-
 use App\Models\Role;
 
 class UsersController extends Controller
