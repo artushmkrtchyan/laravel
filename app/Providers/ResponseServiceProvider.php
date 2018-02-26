@@ -14,11 +14,11 @@ class ResponseServiceProvider extends ServiceProvider
      */
     public function boot(ResponseFactory $factory)
     {
-        $factory->macro('apiJson', function ($success, $ststusCode, $data) use ($factory) {
+        $factory->macro('apiJson', function ($success, $statusCode, $data) use ($factory) {
 
             $customFormat = [
                 'success' => $success,
-                'ststusCode' => $ststusCode,
+                'statusCode' => $statusCode,
                 'data' => $data
             ];
             return $factory->make($customFormat);

@@ -55,14 +55,22 @@ class Handler extends ExceptionHandler
         // This will replace our 404 response with
         // a JSON response.
         if ($exception instanceof ModelNotFoundException) {
-            return response()->apiJson(false, Response::HTTP_NOT_FOUND, 'Resource not found.');
+            return response([
+              'message' => 'Resource not found.'
+            ], Response::HTTP_NOT_FOUND);
         }elseif ($exception instanceof NotFoundHttpException) {
-            return response()->apiJson(false, Response::HTTP_NOT_FOUND, 'Please check the URL you submitted.');
+            return response([
+              'message' => 'Please check the URL you submitted.'
+            ], Response::HTTP_NOT_FOUND);
         }elseif($exception instanceof AuthenticationException) {
-            return response()->apiJson(false, Response::HTTP_FORBIDDEN, 'Unauthenticated.');
+            return response([
+              'message' => 'Unauthenticated.'
+            ], Response::HTTP_FORBIDDEN);
         }
 
-        return response()->apiJson(false, Response::HTTP_BAD_REQUEST, $exception->getMessage());
+        return response([
+          'message' => $exception->getMessage()
+        ], Response::HTTP_BAD_REQUEST);
 
         //return parent::render($request, $exception);
     }

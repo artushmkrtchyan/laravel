@@ -24,8 +24,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+    public function login(Request $request){
+      // dd($request->email);
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
@@ -51,7 +52,7 @@ class AuthController extends Controller
 
 
         if ($validator->fails()) {
-            return response()->apiJson(false, Response::HTTP_UNAUTHORIZED, $validator->errors());
+            return response(['success' => 'true', 'statusCode' => Response::HTTP_UNAUTHORIZED, 'error' => $validator->errors()], Response::HTTP_UNAUTHORIZED);
         }
 
 
@@ -61,10 +62,7 @@ class AuthController extends Controller
         $user = User::create($input);
         $user->roles()->attach(Role::where('name', 'subscriber')->first());
 
-        // $success['token'] =  $user->createToken('MyApp')->accessToken;
-        // $success['name'] =  $user->name;
-        // return response()->json(['success'=>$success], $this->successStatus);
-        return response()->apiJson(true, Response::HTTP_OK, $user->createToken('MyApp')->accessToken);
+        return response(['success' => 'true', 'statusCode' => Response::HTTP_OK, 'token' => $user->createToken('MyApp')->accessToken], Response::HTTP_OK);
     }
 
 
