@@ -15,9 +15,7 @@ use Validator;
 class AuthController extends Controller
 {
 
-
-    public $successStatus = 200;
-
+  public $successStatus = 200;
 
     /**
      * login api
@@ -25,7 +23,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request){
-      // dd($request->email);
+
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
@@ -52,7 +50,7 @@ class AuthController extends Controller
 
 
         if ($validator->fails()) {
-            return response(['success' => 'true', 'statusCode' => Response::HTTP_UNAUTHORIZED, 'error' => $validator->errors()], Response::HTTP_UNAUTHORIZED);
+            return response(['success' => 'false', 'statusCode' => Response::HTTP_UNAUTHORIZED, 'error' => $validator->errors()], Response::HTTP_UNAUTHORIZED);
         }
 
 
@@ -86,6 +84,7 @@ class AuthController extends Controller
       }
 
       $request->user('api')->token()->revoke();
+      $request->user('api')->token()->delete(); 
 
       Auth::guard()->logout();
 

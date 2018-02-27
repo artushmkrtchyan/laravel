@@ -14,22 +14,25 @@ use Illuminate\Http\Request;
 */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, UPDATE');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::group(['prefix' => 'v1'], function()
 {
-    // Route::resource('posts', 'Api\PostController');
+
     Route::post('login', 'Api\AuthController@login');
     Route::post('logout','Api\AuthController@logout');
     Route::post('register', 'Api\AuthController@register');
+    // Route::resource('posts', 'Api\PostController');
+    Route::get('posts', 'Api\PostController@index');
+    Route::get('posts/{id}', 'Api\PostController@show');
 
     Route::resource('products', 'Api\ProductController');
 
     Route::group(['middleware' => 'auth:api'], function(){
-      Route::get('posts', 'Api\PostController@index');
-      Route::get('posts/{id}', 'Api\PostController@show');
     	Route::post('details', 'Api\AuthController@details');
       Route::resource('users', 'Api\UserController');
       Route::resource('posts', 'Api\PostController', ['except' => ['index', 'show']]);
