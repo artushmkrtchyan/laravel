@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-use App\Models\Post;
 use App\Models\Categories;
 use App\Models\CategoryPost;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 use App\Models\User;
-use Auth;
+use App\Models\Role;
 
 class PostController extends Controller
 {
@@ -90,9 +90,9 @@ class PostController extends Controller
             $post->status = 'no-publish';
         }
 
-        // if(Auth::User()->id){
-        //     $post->author_id = Auth::User()->id;
-        // }
+        if(Auth::User()->id){
+            $post->author_id = Auth::User()->id;
+        }
 
         if($request->hasfile('image')) {
 

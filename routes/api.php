@@ -30,11 +30,10 @@ Route::group(['prefix' => 'v1'], function()
     Route::get('posts', 'Api\PostController@index');
     Route::get('posts/{id}', 'Api\PostController@show');
 
-    Route::resource('products', 'Api\ProductController');
-
     Route::group(['middleware' => 'auth:api'], function(){
     	Route::post('details', 'Api\AuthController@details');
       Route::resource('users', 'Api\UserController');
       Route::resource('posts', 'Api\PostController', ['except' => ['index', 'show']]);
+      Route::resource('products', 'Api\ProductController');
     });
 });
