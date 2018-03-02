@@ -20,20 +20,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'v1'], function()
+Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function()
 {
 
-    Route::post('login', 'Api\AuthController@login');
-    Route::post('logout','Api\AuthController@logout');
-    Route::post('register', 'Api\AuthController@register');
-    // Route::resource('posts', 'Api\PostController');
-    Route::get('posts', 'Api\PostController@index');
-    Route::get('posts/{id}', 'Api\PostController@show');
+    Route::post('login', 'AuthController@login');
+    Route::post('logout','AuthController@logout');
+    Route::post('register', 'AuthController@register');
+    // Route::resource('posts', 'PostController');
+    Route::get('posts', 'PostController@index');
+    Route::get('posts/{id}', 'PostController@show');
+    Route::get('category', 'CategoryController@index');
 
     Route::group(['middleware' => 'auth:api'], function(){
-    	Route::post('details', 'Api\AuthController@details');
-      Route::resource('users', 'Api\UserController');
-      Route::resource('posts', 'Api\PostController', ['except' => ['index', 'show']]);
-      Route::resource('products', 'Api\ProductController');
+    	Route::post('details', 'AuthController@details');
+      Route::resource('users', 'UserController');
+      Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
+      Route::resource('products', 'ProductController');
     });
 });

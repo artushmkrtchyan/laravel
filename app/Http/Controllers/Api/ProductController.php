@@ -30,7 +30,7 @@ class ProductController extends Controller
     {
         $request = app('request');
 
-        $filename = '';
+        $filename = 'no.png';
 
         if($request->hasfile('image')) {
 
@@ -77,7 +77,6 @@ class ProductController extends Controller
         if($request->input('code') && $request->input('code') != ''){
             $product->code = $request->input('code');
         }
-
 
         if($request->hasfile('image')) {
 

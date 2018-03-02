@@ -43,7 +43,7 @@ class PostController extends Controller
     {
         $request = app('request');
 
-        $filename = '';
+        $filename = 'no.png';
         $status = $request->input('status') ? $request->input('status') : 'no-publish';
         $author_id = Auth::User()->id;
 
@@ -163,7 +163,7 @@ class PostController extends Controller
 
 
       if($categories = $request->input('catedories')){
-        
+
         $delete_cat = CategoryPost::where('post_id', $id);
         $delete_cat->delete();
 

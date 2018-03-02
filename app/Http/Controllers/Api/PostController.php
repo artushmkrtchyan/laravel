@@ -36,8 +36,8 @@ class PostController extends Controller
     {
         $request = app('request');
 
-        $filename = '';
-        $status = $request->input('status') ? $request->input('status') : 'no-publish';
+        $filename = 'no.png';
+        $status = $request->input('status') ? 'publish' : 'no-publish';
         $author_id = Auth::User()->id;
 
         if($request->hasfile('image')) {
@@ -54,8 +54,8 @@ class PostController extends Controller
         $post = Post::create([
                   'title' => $request->input('title'),
                   'content' => $request->input('content'),
-                  'status' => $status,
                   'author_id' => $author_id,
+                  'status' => $status,
                   'image' => $filename,
                 ]);
 

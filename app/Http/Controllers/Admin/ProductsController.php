@@ -42,7 +42,7 @@ class ProductsController extends Controller
     {
       $request = app('request');
 
-      $filename = '';
+      $filename = 'no.png';
 
       if($request->hasfile('image')) {
 
