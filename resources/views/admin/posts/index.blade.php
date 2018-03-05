@@ -15,6 +15,9 @@
             <p class="teaser">
                {{  str_limit($post->content, 100) }}
             </p>
+            <p class="teaser">
+               {{ $post->status }}
+            </p>
         </a>
 			</div>
 		</div>

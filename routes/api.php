@@ -33,6 +33,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function()
 
     Route::group(['middleware' => 'auth:api'], function(){
     	Route::post('details', 'AuthController@details');
+      Route::post('userposts', 'UserController@userposts');
       Route::resource('users', 'UserController');
       Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
       Route::resource('products', 'ProductController');

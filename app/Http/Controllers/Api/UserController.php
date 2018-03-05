@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Validator;
@@ -25,6 +26,13 @@ class UserController extends Controller
       $user = User::findOrFail($id);
 
       return response()->apiJson(true, Response::HTTP_OK, $user);
+    }
+
+    public function userposts(Post $post)
+    {
+      $posts = Post::orderby('id', 'desc')->where('author_id', '=', Auth::User()->id)->get();
+
+      return response()->apiJson(true, Response::HTTP_OK, $posts);
     }
 
     public function update(Request $request, $id)

@@ -22,7 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(10);
+        $posts = Post::orderby('id', 'desc')->paginate(10);
 
         return view('admin.posts.index', compact('posts'));
     }
