@@ -17,8 +17,19 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderby('id', 'desc')->where('status', 'publish')->paginate(10);
+        $users = User::whereHas('roles', function($q){
+            $q->where('name', 'subscriber');
+        })->get();
+        $users_ids = [];
 
+        foreach ($users as $user) {
+          $users_ids[] = $user->id;
+        }
+        if(isset($_GET["count"]) && $_GET["count"]>0){
+          $posts = Post::orderby('id', 'desc')->where('status', 'publish')->whereNotIn('author_id', $users_ids)->limit($_GET["count"])->get();
+        }else{
+          $posts = Post::orderby('id', 'desc')->where('status', 'publish')->whereNotIn('author_id', $users_ids)->paginate(10);
+        }
         // return response($posts->jsonSerialize(), Response::HTTP_OK);
         return response()->apiJson(true, Response::HTTP_OK, $posts);
 
