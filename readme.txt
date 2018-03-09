@@ -6,6 +6,21 @@ Installation
 5. php artisan key:generate
 6. php artisan migrate
 7. php artisan storage:link
+8. Login social:
+  Set the keys you got after registering your app in your .env file:
+
+  TWITTER_ID=
+  TWITTER_SECRET=
+  TWITTER_URL=http://local.laravel/auth/twitter/callback
+
+  GITHUB_ID=
+  GITHUB_SECRET=
+  GITHUB_URL=http://local.laravel/auth/github/callback
+
+  FACEBOOK_ID=
+  FACEBOOK_SECRET=
+  FACEBOOK_URL=http://local.laravel/auth/facebook/callback
+  
 
 URL
 1 https://scotch.io/tutorials/user-authorization-in-laravel-54-with-spatie-laravel-permission
