@@ -12,5 +12,6 @@ URL
 2 https://github.com/caleboki/acl
 3.https://github.com/KodeBlog/Laradmin
 4.https://medium.com/@ezp127/laravel-5-4-native-user-authentication-role-authorization-3dbae4049c8a
+5.https://scotch.io/tutorials/laravel-social-authentication-with-socialite
 
 passport version number (4.0.3)

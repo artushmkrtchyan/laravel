@@ -11,7 +11,6 @@
     <title>{{ config('app.name', 'Laravel') }} Admin Panel</title>
 
     <!-- Styles -->
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin/main.css') }}" rel="stylesheet">
 

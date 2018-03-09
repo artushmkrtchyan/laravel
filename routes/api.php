@@ -26,6 +26,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function()
     Route::post('login', 'AuthController@login');
     Route::post('logout','AuthController@logout');
     Route::post('register', 'AuthController@register');
+
+    Route::post('auth/{provider}', 'SocialiteAuthController@redirectToProvider');
+    Route::post('auth/{provider}/callback', 'SocialiteAuthController@handleProviderCallback');
+
     // Route::resource('posts', 'PostController');
     Route::get('posts', 'PostController@index');
     Route::get('posts/{id}', 'PostController@show');

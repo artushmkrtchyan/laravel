@@ -80,7 +80,15 @@
                 </div>
             </div>
 
-<img src="{{ Storage::url('/uploads/avatars/'.$user->avatar) }}" alt="guillermo_rojas" width="75" class="is-circle is-outlined bg-white">
+            <div class="media-left">
+                <?php if($user->provider_id){?>
+                  <img src="{{ $user->avatar }}" class="media-object" style="width:60px">
+                <?php
+                }else{ ?>
+                  <img src="{{ Storage::url('/uploads/avatars/'.$user->avatar) }}" class="media-object" style="width:60px">
+                <?php
+                } ?>
+            </div>
 
         </form>
     </div>

@@ -19,6 +19,9 @@ Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 Route::get('account', 'ProfileController@index')->name('account');
 
+Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+
 Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin'], function(){
 
   Route::get('/', 'DashboardController@index')->name('dashboard');

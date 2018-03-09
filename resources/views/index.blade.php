@@ -70,7 +70,7 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
-						<a href="{{ url('/users') }}">Users</a>
+						            <a href="{{ url('/account') }}">Account</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -87,7 +87,6 @@
                     <a href="{{ route('posts') }}">Posts</a>
                     <a href="{{ route('category') }}">Category</a>
 					          <a href="{{ route('account') }}">Account</a>
-                    <a href="{{ route('users') }}">Users</a>
                 </div>
             </div>
         </div>
