@@ -20,7 +20,7 @@ class SocialiteAuthController extends Controller
      * @return Response
      */
     public function redirectToProvider($provider)
-    { dd('5555555555555555555555')
+    {
         return Socialite::driver($provider)->redirect();
     }
 
@@ -33,7 +33,7 @@ class SocialiteAuthController extends Controller
      * @return Response
      */
     public function handleProviderCallback($provider)
-    {
+    {   
         $user = Socialite::driver($provider)->user();
 
         $authUser = $this->findOrCreateUser($user, $provider);
@@ -52,6 +52,7 @@ class SocialiteAuthController extends Controller
     {
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
+
             return $authUser;
         }
 
@@ -64,6 +65,6 @@ class SocialiteAuthController extends Controller
         ]);
 
         $user->roles()->attach(Role::where('name', 'subscriber')->first());
-        return response(['success' => 'true', 'statusCode' => Response::HTTP_OK, 'token' => $user->createToken('MyApp')->accessToken], Response::HTTP_OK);
+        return $user;
     }
 }

@@ -13,7 +13,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderby('id', 'desc')->paginate(10);
+        if(isset($_GET["count"]) && $_GET["count"]>0){
+          $products = Product::orderby('id', 'desc')->limit($_GET["count"])->get();
+        }
+        else {
+          $products = Product::orderby('id', 'desc')->paginate(10);
+        }
 
         // return response($products->jsonSerialize(), Response::HTTP_OK);
         return response()->apiJson(true, Response::HTTP_OK, $products);

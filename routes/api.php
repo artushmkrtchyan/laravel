@@ -27,12 +27,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function()
     Route::post('logout','AuthController@logout');
     Route::post('register', 'AuthController@register');
 
-    Route::post('auth/{provider}', 'SocialiteAuthController@redirectToProvider');
-    Route::post('auth/{provider}/callback', 'SocialiteAuthController@handleProviderCallback');
+    Route::get('auth/{provider}', 'SocialiteAuthController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'SocialiteAuthController@handleProviderCallback');
 
     // Route::resource('posts', 'PostController');
     Route::get('posts', 'PostController@index');
     Route::get('posts/{id}', 'PostController@show');
+    Route::get('products', 'ProductController@index');
+    Route::get('products/{id}', 'ProductController@show');
     Route::get('category', 'CategoryController@index');
 
     Route::group(['middleware' => 'auth:api'], function(){
@@ -40,6 +42,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function()
       Route::post('userposts', 'UserController@userposts');
       Route::resource('users', 'UserController');
       Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
-      Route::resource('products', 'ProductController');
+      Route::resource('products', 'ProductController', ['except' => ['index', 'show']]);
     });
 });
