@@ -52,26 +52,33 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        if(strpos($request->path(), 'api/v1/') === false){
+          return parent::render($request, $exception);
+        }
         // This will replace our 404 response with
         // a JSON response.
         if ($exception instanceof ModelNotFoundException) {
             return response([
+              'success' => false,
               'message' => 'Resource not found.'
             ], Response::HTTP_NOT_FOUND);
         }elseif ($exception instanceof NotFoundHttpException) {
             return response([
+              'success' => false,
               'message' => 'Please check the URL you submitted.'
             ], Response::HTTP_NOT_FOUND);
         }elseif($exception instanceof AuthenticationException) {
             return response([
+              'success' => false,
               'message' => 'Unauthenticated.'
             ], Response::HTTP_FORBIDDEN);
         }
 
         return response([
+          'success' => false,
           'message' => $exception->getMessage()
         ], Response::HTTP_BAD_REQUEST);
 
-        //return parent::render($request, $exception);
     }
 }

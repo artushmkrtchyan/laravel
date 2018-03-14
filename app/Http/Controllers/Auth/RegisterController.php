@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -42,36 +44,31 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array  $request
      * @return \App\User
      */
 
-	protected function create(array $data)
+	protected function create(Request $request)
 	{
-		$request = app('request');
+
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6|confirmed',
+    ]);
+
+    if ($validator->fails()) {
+      dd($validator->errors());
+      return view('auth.register')->withErrors($validator);
+    }
+
 		$filename = 'default.jpg';
 
 		if($request->hasfile('avatar')) {
 			$avatar = $request->file('avatar');
-			$filename = time() . '-' . $data['name'] . '.' . $avatar->getClientOriginalExtension();
-			//Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename) );
+			$filename = time() . '-' . $request->input('name') . '.' . $avatar->getClientOriginalExtension();
 
 			$uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
 
@@ -79,16 +76,18 @@ class RegisterController extends Controller
 		}
 
 		$user = User::create([
-			'name' => $data['name'],
-      'email' => $data['email'],
-      'password' => bcrypt($data['password']),
-      'description' => $data['description'],
+			'name' => $request->input('name'),
+      'email' => $request->input('email'),
+      'password' => bcrypt($request->input('password')),
+      'description' => $request->input('description'),
 			'avatar' => $filename,
 		]);
 
     $user->roles()->attach(Role::where('name', 'subscriber')->first());
 
-    return $user;
+    Auth::login($user);
+
+    return Redirect::to('/account');
 	}
 
 }

@@ -15,7 +15,7 @@
                 <label for="name" class="col-md-2 control-label">Name</label>
 
                 <div class="col-md-9">
-                    <input id="title" type="text" class="form-control" name="name" value="{{ $product->name }}" required autofocus>
+                    <input id="title" type="text" class="form-control" name="name" value="{{ $product->name }}" autofocus>
 
                     @if ($errors->has('name'))
                         <span class="help-block">
@@ -25,11 +25,17 @@
                 </div>
             </div>
 
-             <div class="form-group">
+             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                 <label for="content" class="col-md-2 control-label">description</label>
 
                 <div class="col-md-9">
                     <textarea rows="7" cols="50" class="form-control" name="description">{{ $product->description }}</textarea>
+
+                    @if ($errors->has('description'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('description') }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
 

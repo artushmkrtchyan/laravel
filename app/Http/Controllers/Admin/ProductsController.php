@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Models\Shop;
 
@@ -38,9 +39,17 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-      $request = app('request');
+      $validator = Validator::make($request->all(), [
+          'name' => 'required|string',
+          'description' => 'required',
+      ]);
+
+      if ($validator->fails()) {
+        $shops = Shop::all();
+        return view('admin.products.create', compact('shops'))->withErrors($validator);
+      }
 
       $filename = 'no.png';
 
@@ -117,6 +126,19 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+      $validator = Validator::make($request->all(), [
+          'name' => 'required|string',
+          'description' => 'required',
+      ]);
+
+      if ($validator->fails()) {
+        
+        $product = Product::find($id);
+        $shops = Shop::all();
+        return view('admin.products.edit', compact('product', 'shops'))->withErrors($validator);
+      }
+
       $product = Product::find($id);
 
       $product->name = $request->input('name');

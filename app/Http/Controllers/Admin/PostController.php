@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 use App\Models\Categories;
@@ -39,9 +40,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $request = app('request');
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'content' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+
+          $categories = Categories::all();
+
+          return view('admin.posts.create', compact('categories'))->withErrors($validator);
+        }
 
         $filename = 'no.png';
         $status = $request->input('status') ? $request->input('status') : 'no-publish';
@@ -130,6 +141,22 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $validator = Validator::make($request->all(), [
+          'title' => 'required|string',
+          'content' => 'required',
+      ]);
+
+      if ($validator->fails()) {
+
+        $post = Post::find($id);
+
+        $categories = Categories::all();
+
+        $category_post = DB::select('select * from category_post where post_id = ?', [$id]);
+
+        return view('admin.posts.edit', compact('post', 'categories', 'category_post'))->withErrors($validator);
+      }
+
       $author_id = Auth::User()->id;
 
       $status = $request->input('status') ? $request->input('status') : 'no-publish';
