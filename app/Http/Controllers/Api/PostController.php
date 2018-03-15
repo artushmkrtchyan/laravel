@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Categories;
 use App\Models\CategoryPost;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
@@ -45,7 +46,15 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $request = app('request');
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'content' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+          return response(['success' => false, 'statusCode' => Response::HTTP_OK, 'error' => $validator->errors()], Response::HTTP_OK);
+        }
+
 
         $filename = 'no.png';
         $status = $request->input('status') ? 'publish' : 'no-publish';
@@ -70,7 +79,8 @@ class PostController extends Controller
                   'image' => $filename,
                 ]);
 
-        if($categories = $request->input('catedories')){
+        if($categories = $request->input('categories')){
+          $categories = explode(",",$categories);
           foreach ($categories as $item) {
             CategoryPost::create([
               'post_id' => $post->id,
@@ -85,6 +95,15 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'content' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+          return response(['success' => false, 'statusCode' => Response::HTTP_OK, 'error' => $validator->errors()], Response::HTTP_OK);
+        }
+
         $post = Post::find($id);
 
         if($request->input('title') && $request->input('title') != ''){
@@ -122,7 +141,7 @@ class PostController extends Controller
 
         $post->save();
 
-        if($categories = $request->input('catedories')){
+        if($categories = $request->input('categories')){
 
           $delete = CategoryPost::where('post_id', $id);
           $delete->delete();

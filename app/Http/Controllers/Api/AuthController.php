@@ -50,17 +50,28 @@ class AuthController extends Controller
 
 
         if ($validator->fails()) {
-            return response(['success' => 'false', 'statusCode' => Response::HTTP_UNAUTHORIZED, 'error' => $validator->errors()], Response::HTTP_UNAUTHORIZED);
+            return response(['success' => false, 'statusCode' => Response::HTTP_UNAUTHORIZED, 'error' => $validator->errors()], Response::HTTP_UNAUTHORIZED);
         }
-
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $input['avatar'] = 'default.jpg';
+
+        if($request->hasfile('avatar')) {
+    			$avatar = $request->file('avatar');
+    			$filename = time() . '-' . $request->input('name') . '.' . $avatar->getClientOriginalExtension();
+
+    			$uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'avatars';
+
+    			$path = $request->avatar->storeAs($uploadsFolder, $filename);
+          $input['avatar'] = $filename;
+    		}
+
+
         $user = User::create($input);
         $user->roles()->attach(Role::where('name', 'subscriber')->first());
 
-        return response(['success' => 'true', 'statusCode' => Response::HTTP_OK, 'token' => $user->createToken('MyApp')->accessToken], Response::HTTP_OK);
+        return response(['success' => true, 'statusCode' => Response::HTTP_OK, 'token' => $user->createToken('MyApp')->accessToken], Response::HTTP_OK);
     }
 
 
@@ -84,7 +95,7 @@ class AuthController extends Controller
       }
 
       $request->user('api')->token()->revoke();
-      $request->user('api')->token()->delete(); 
+      $request->user('api')->token()->delete();
 
       Auth::guard()->logout();
 
