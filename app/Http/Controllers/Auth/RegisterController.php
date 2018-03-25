@@ -60,7 +60,6 @@ class RegisterController extends Controller
     ]);
 
     if ($validator->fails()) {
-      dd($validator->errors());
       return view('auth.register')->withErrors($validator);
     }
 

@@ -17,7 +17,7 @@ class PostsTable extends Migration
           $table->increments('id');
           $table->text('title');
           $table->longText('content')->nullable();
-          $table->bigInteger('author_id')->default(0);
+          $table->bigInteger('author_id')->nullable();
           $table->string('status', 20)->default('no-publish');
           $table->string('image')->nullable();
           $table->timestamps();
