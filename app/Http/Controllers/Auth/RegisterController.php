@@ -60,7 +60,7 @@ class RegisterController extends Controller
     ]);
 
     if ($validator->fails()) {
-      return view('auth.register')->withErrors($validator);
+      return view('auth.register', compact('request'))->withErrors($validator);
     }
 
 		$filename = 'default.jpg';
