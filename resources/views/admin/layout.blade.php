@@ -82,7 +82,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="{{ route('users') }}"><i class="fa fa-users"></i> Users </a></li>
-                                <li><a href="/admin/cuntact-us"><i class="fa fa-envelope-open-o"></i> Cuntact Us </a></li>
+                                <li><a href="/admin/contact-us"><i class="fa fa-envelope-open-o"></i> Contact Us </a></li>
                                 <li class="open_down"><a><i class="fa fa-edit"></i> Products <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="{{ route('product-create') }}">Add New Product</a></li>

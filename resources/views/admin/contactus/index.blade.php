@@ -22,7 +22,7 @@
       <td>{{$mail->message}}</td>
       <td>{{$mail->created_at}}</td>
       <td>
-            {{ Form::open(['method' => 'DELETE', 'route' => ['cuntact-us.destroy', $mail->id]]) }}
+            {{ Form::open(['method' => 'DELETE', 'route' => ['contact-us.destroy', $mail->id]]) }}
                 {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
             {{ Form::close() }}
         </td>

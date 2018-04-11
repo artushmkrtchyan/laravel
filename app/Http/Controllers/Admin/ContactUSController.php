@@ -13,12 +13,12 @@ class ContactUSController extends Controller
   {
       $mails = ContactUS::orderby('id', 'desc')->paginate(10);
 
-      return view('admin.cuntactus.index', compact('mails'));
+      return view('admin.contactus.index', compact('mails'));
   }
 
   public function destroy($id)
     {
         ContactUS::find($id)->delete();
-        return Redirect::to('/admin/cuntact-us');
+        return Redirect::to('/admin/contact-us');
     }
 }

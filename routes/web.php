@@ -67,7 +67,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin
   Route::post('product/edit/{id}', ['uses' => 'ProductsController@update', 'as' => 'product.update']);
   Route::post('product/delete/{id}', ['uses' => 'ProductsController@destroy', 'as' => 'product.delete']);
 
-  // Route::get('cuntact-us', 'ContactUSController@index')->name('cuntact_us');
-  Route::resource('cuntact-us', 'ContactUSController');
+  Route::resource('contact-us', 'ContactUSController');
 
 });
