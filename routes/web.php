@@ -23,6 +23,9 @@ Route::post('register', 'Auth\RegisterController@create')->name('register');
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
+Route::get('contact-us', 'ContactUSController@contactUS');
+Route::post('contact-us', 'ContactUSController@contactUSPost')->name("contact_us.store");
+
 Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin'], function(){
 
   Route::get('/', 'DashboardController@index')->name('dashboard');
@@ -63,5 +66,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin
   Route::get('product/edit/{id}', ['uses' => 'ProductsController@edit']);
   Route::post('product/edit/{id}', ['uses' => 'ProductsController@update', 'as' => 'product.update']);
   Route::post('product/delete/{id}', ['uses' => 'ProductsController@destroy', 'as' => 'product.delete']);
+
+  // Route::get('cuntact-us', 'ContactUSController@index')->name('cuntact_us');
+  Route::resource('cuntact-us', 'ContactUSController');
 
 });
