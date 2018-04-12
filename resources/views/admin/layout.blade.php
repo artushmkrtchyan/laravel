@@ -77,18 +77,18 @@
                                     <ul class="nav child_menu">
                                         <li><a href="{{ route('posts-create') }}">Add New Post</a></li>
                                         <li><a href="{{ route('posts') }}">Posts list</a></li>
-                                        <li><a href="{{ route('category-create') }}">Add new Category</a></li>
-                                        <li><a href="{{ route('category') }}">Categories</a></li>
+                                        <li><a href="{{ route('category.create') }}">Add new Category</a></li>
+                                        <li><a href="{{ route('category.index') }}">Categories</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{{ route('users') }}"><i class="fa fa-users"></i> Users </a></li>
-                                <li><a href="/admin/contact-us"><i class="fa fa-envelope-open-o"></i> Contact Us </a></li>
+                                <li><a href="{{ route('admin.contact.index') }}"><i class="fa fa-envelope-open-o"></i> Contact Us </a></li>
                                 <li class="open_down"><a><i class="fa fa-edit"></i> Products <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="{{ route('product-create') }}">Add New Product</a></li>
-                                        <li><a href="{{ route('product') }}">Product list</a></li>
-                                        <li><a href="{{ route('shops-create') }}">Add new Shops</a></li>
-                                        <li><a href="{{ route('shops') }}">Shops</a></li>
+                                        <li><a href="{{ route('admin.product.create') }}">Add New Product</a></li>
+                                        <li><a href="{{ route('admin.product.index') }}">Product list</a></li>
+                                        <li><a href="{{ route('shops.create') }}">Add new Shops</a></li>
+                                        <li><a href="{{ route('shops.index') }}">Shops</a></li>
                                     </ul>
                                 </li>
                             </ul>

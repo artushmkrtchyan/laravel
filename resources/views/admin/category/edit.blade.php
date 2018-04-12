@@ -8,78 +8,52 @@
     <div class="panel-heading">Edit category</div>
 
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('category.update', $category->id) }}">
-            {{ csrf_field() }}
-
-            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="name" class="col-md-2 control-label">Name</label>
-
-                <div class="col-md-9">
-                    <input id="name" type="text" class="form-control" name="name" value="{{$category->name}}" required autofocus>
-
-                    @if ($errors->has('name'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                    @endif
-                </div>
+        {!! Form::open(['method' => 'PUT', 'route'=>['category.update', $category->id]]) !!}
+            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+              {!! Form::label('Name:') !!}
+              {!! Form::text('name', old('name', $category->name), ['class'=>'form-control', 'placeholder'=>'name']) !!}
+              <span class="text-danger">{{ $errors->first('name') }}</span>
             </div>
 
-             <div class="form-group">
-               <label for="name" class="col-md-2 control-label">Slug</label>
+            <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }}">
+              {!! Form::label('Slug:') !!}
+              {!! Form::text('slug', old('name', $category->slug), ['class'=>'form-control', 'placeholder'=>'slug']) !!}
+              <span class="text-danger">{{ $errors->first('slug') }}</span>
+            </div>
 
-               <div class="col-md-9">
-                   <input id="slug" type="text" class="form-control" name="slug" value="{{$category->slug}}" required autofocus>
+            @if (count($categories) > 1)
+              <div class="form-group {{ $errors->has('parent') ? 'has-error' : '' }}">
+                {!! Form::label('Parent:') !!}
+                <select name="parent">
+                  <option value="">No parent</option>
+                    @foreach ($categories as $item)
+                    <?php if($item->id == $taxonomy->parent){
+                       $selected = 'selected';
+                     }else{
+                        $selected = '';
+                      }
+                     ?>
+                     @if ($item->id != $category->id)
+                       <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                     @endif
+                    @endforeach
+               </select>
+                <span class="text-danger">{{ $errors->first('parent') }}</span>
+              </div>
+            @endif
 
-                   @if ($errors->has('slug'))
-                       <span class="help-block">
-                           <strong>{{ $errors->first('slug') }}</strong>
-                       </span>
-                   @endif
-               </div>
-             </div>
-
-               @if (count($categories) > 1)
-
-                 <div class="form-group">
-                   <label for="parent" class="col-md-2 control-label">Parent</label>
-
-                   <div class="col-md-9">
-                     <select name="parent">
-                       <option value="">No parent</option>
-                         @foreach ($categories as $item)
-                         <?php if($item->id == $taxonomy->parent){
-                            $selected = 'selected';
-                          }else{
-                             $selected = '';
-                           }
-                          ?>
-                          @if ($item->id != $category->id)
-                            <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
-                          @endif
-                         @endforeach
-                    </select>
-                   </div>
-                 </div>
-
-               @endif
-
-               <div class="form-group">
-                 <label for="order" class="col-md-2 control-label">Order</label>
-
-                 <div class="col-md-9">
-                     <input id="order" type="number" class="form-control" name="order" value="{{$taxonomy->order}}">
-                 </div>
-               </div>
+            <div class="form-group {{ $errors->has('order') ? 'has-error' : '' }}">
+              {!! Form::label('Order:') !!}
+              {!! Form::number('order', old('order', $taxonomy->order), ['class'=>'form-control', 'placeholder'=>'order']) !!}
+              <span class="text-danger">{{ $errors->first('order') }}</span>
+            </div>
 
             <div class="form-group">
-                <div class="col-md-9 col-md-offset-2">
-                    <button type="submit" class="btn btn-primary">
-                        Edit category
-                    </button>
-                </div>
+              <button class="btn btn-success">Edit category</button>
             </div>
-        </form>
+        {!! Form::close() !!}
+
+
     </div>
 </div>
 @endsection

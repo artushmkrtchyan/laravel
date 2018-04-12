@@ -24,11 +24,6 @@ class ShopsController extends Controller
         }
     }
 
-    public function createForm()
-    {
-        return view('admin.shops.create');
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -36,14 +31,7 @@ class ShopsController extends Controller
      */
     public function create()
     {
-      $request = app('request');
-
-      $shops = Shop::create([
-        'name' => $request->input('name'),
-        'description' => $request->input('description'),
-      ]);
-
-      return Redirect::to('/admin/shops/create');
+      return view('admin.shops.create');
     }
 
     /**
@@ -54,7 +42,12 @@ class ShopsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $shops = Shop::create([
+        'name' => $request->input('name'),
+        'description' => $request->input('description'),
+      ]);
+
+      return Redirect::to(route('shops.index'));
     }
 
     /**
@@ -100,7 +93,7 @@ class ShopsController extends Controller
 
       $shop->save();
 
-      return Redirect::to('/admin/shops');
+      return Redirect::to(route('shops.index'));
     }
 
     /**
@@ -115,6 +108,6 @@ class ShopsController extends Controller
 
       $shop->delete();
 
-      return Redirect::to('/admin/shops');
+      return Redirect::to(route('shops.index'));
     }
 }

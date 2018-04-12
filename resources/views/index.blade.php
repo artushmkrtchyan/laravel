@@ -85,7 +85,7 @@
 
                 <div class="links">
                     <a href="{{ route('posts') }}">Posts</a>
-                    <a href="{{ route('category') }}">Category</a>
+                    <a href="{{ route('category.index') }}">Category</a>
 					          <a href="{{ route('account') }}">Account</a>
                 </div>
             </div>

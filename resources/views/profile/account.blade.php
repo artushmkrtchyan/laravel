@@ -7,13 +7,11 @@
 		<div class="row">
 				<div class="media">
 					<div class="media-left">
-							<?php if($user->provider_id){?>
+							@if(isset($user->provider_id))
 								<img src="{{ $user->avatar }}" class="media-object" style="width:60px">
-							<?php
-							}else{ ?>
+							@else
 								<img src="{{ Storage::url('/uploads/avatars/'.$user->avatar) }}" class="media-object" style="width:60px">
-							<?php
-							} ?>
+							@endif
 					</div>
 					<div class="media-body">
 					  <h4 class="media-heading">{{ $user->name }}</h4>

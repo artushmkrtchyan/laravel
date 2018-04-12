@@ -7,39 +7,23 @@
     <div class="panel-heading">Add shops</div>
 
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('shops.create') }}">
-            {{ csrf_field() }}
-
-            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                <label for="title" class="col-md-2 control-label">Name</label>
-
-                <div class="col-md-9">
-                    <input id="title" type="text" class="form-control" name="name" value="" required autofocus>
-
-                    @if ($errors->has('name'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                    @endif
-                </div>
+        {!! Form::open(['method' => 'post', 'route'=>'shops.store']) !!}
+            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+              {!! Form::label('Name:') !!}
+              {!! Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>'Enter name']) !!}
+              <span class="text-danger">{{ $errors->first('name') }}</span>
             </div>
 
-             <div class="form-group">
-                <label for="content" class="col-md-2 control-label">description</label>
-
-                <div class="col-md-9">
-                    <textarea rows="7" cols="50" class="form-control" name="description"></textarea>
-                </div>
+            <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
+              {!! Form::label('description:') !!}
+              {!! Form::textarea('description', old('description'), ['class'=>'form-control', 'placeholder'=>'Enter description']) !!}
+              <span class="text-danger">{{ $errors->first('description') }}</span>
             </div>
 
             <div class="form-group">
-                <div class="col-md-9 col-md-offset-2">
-                    <button type="submit" class="btn btn-primary">
-                        Add shop
-                    </button>
-                </div>
+              <button class="btn btn-success">Add shop</button>
             </div>
-        </form>
+        {!! Form::close() !!}
     </div>
 </div>
 @endsection

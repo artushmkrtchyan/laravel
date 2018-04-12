@@ -23,8 +23,7 @@ Route::post('register', 'Auth\RegisterController@create')->name('register');
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
-Route::get('contact-us', 'ContactUSController@contactUS');
-Route::post('contact-us', 'ContactUSController@contactUSPost')->name("contact_us.store");
+Route::resource('contact-us', 'ContactUSController', ['names' =>['index' => 'contact.index', 'store' => 'contact.store']]);
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin'], function(){
 
@@ -43,30 +42,22 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin
   Route::post('post/edit/{id}', ['uses' => 'PostController@update', 'as' => 'post.update']);
   Route::post('post/delete/{id}', ['uses' => 'PostController@destroy', 'as' => 'post.delete']);
 
-  Route::get('category', 'CategoryController@index')->name('category');
-  Route::get('category/create', 'CategoryController@createForm')->name('category-create');
-  Route::post('category/create', ['uses' => 'CategoryController@create', 'as' => 'category.create']);
-  Route::get('category/{id}', ['uses' => 'CategoryController@show', 'as' => 'category.show']);
-  Route::get('category/edit/{id}', ['uses' => 'CategoryController@edit']);
-  Route::post('category/edit/{id}', ['uses' => 'CategoryController@update', 'as' => 'category.update']);
-  Route::post('category/delete/{id}', ['uses' => 'CategoryController@destroy', 'as' => 'category.delete']);
+  Route::resource('product', 'ProductsController', ['names' =>[
+      'index' => 'admin.product.index',
+      'create' => 'admin.product.create',
+      'store' => 'admin.product.store',
+      'edit' => 'admin.product.edit',
+      'update' => 'admin.product.update',
+      'show' => 'admin.product.show',
+      'destroy' => 'admin.product.destroy'
+     ]
+   ]
+ );
 
-  Route::get('shops', 'ShopsController@index')->name('shops');
-  Route::get('shops/create', 'ShopsController@createForm')->name('shops-create');
-  Route::post('shops/create', ['uses' => 'ShopsController@create', 'as' => 'shops.create']);
-  Route::get('shops/{id}', ['uses' => 'ShopsController@show', 'as' => 'shops.show']);
-  Route::get('shops/edit/{id}', ['uses' => 'ShopsController@edit']);
-  Route::post('shops/edit/{id}', ['uses' => 'ShopsController@update', 'as' => 'shops.update']);
-  Route::post('shops/delete/{id}', ['uses' => 'ShopsController@destroy', 'as' => 'shops.delete']);
+  Route::resource('category', 'CategoryController');
 
-  Route::get('product', 'ProductsController@index')->name('product');
-  Route::get('product/create', 'ProductsController@createForm')->name('product-create');
-  Route::post('product/create', ['uses' => 'ProductsController@create', 'as' => 'product.create']);
-  Route::get('product/{id}', ['uses' => 'ProductsController@show', 'as' => 'product.show']);
-  Route::get('product/edit/{id}', ['uses' => 'ProductsController@edit']);
-  Route::post('product/edit/{id}', ['uses' => 'ProductsController@update', 'as' => 'product.update']);
-  Route::post('product/delete/{id}', ['uses' => 'ProductsController@destroy', 'as' => 'product.delete']);
+  Route::resource('shops', 'ShopsController');
 
-  Route::resource('contact-us', 'ContactUSController');
+  Route::resource('contact-us', 'ContactUSController', ['names' =>['index' => 'admin.contact.index', 'destroy' => 'admin.contact.destroy']]);
 
 });

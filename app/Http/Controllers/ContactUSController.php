@@ -19,7 +19,7 @@ class ContactUSController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function contactUS()
+    public function index()
     {
         return view('contactUS');
     }
@@ -30,7 +30,7 @@ class ContactUSController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function contactUSPost(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
           'last_name' => 'required',

@@ -201,6 +201,11 @@ select#shop option {
   margin-left: 7px;
 }
 
+.form_delete {
+  float: left;
+  margin-right: 5px;
+}
+
 @media (min-width: 768px){
   .form-horizontal .control-label {
       padding-top: 0;

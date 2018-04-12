@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 use Auth;
 
@@ -17,7 +18,13 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.account', array('user' => Auth::user()) );
+        $user = Auth::user();
+        if(isset($user)){
+          return view('profile.account', compact("user") );
+        }else{
+          return Redirect::to('/login');
+        }
+
     }
 
     /**

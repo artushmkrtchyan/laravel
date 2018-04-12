@@ -17,12 +17,12 @@
   <tbody>
   @foreach ($mails as $mail)
     <tr>
-      <td>{{$mail->last_name}} {{$mail->first_name}}</td>
-      <td>{{$mail->email}}</td>
-      <td>{{$mail->message}}</td>
-      <td>{{$mail->created_at}}</td>
-      <td>
-            {{ Form::open(['method' => 'DELETE', 'route' => ['contact-us.destroy', $mail->id]]) }}
+      <td style="width:20%">{{$mail->last_name}} {{$mail->first_name}}</td>
+      <td style="width:20%">{{$mail->email}}</td>
+      <td style="width:35%">{{$mail->message}}</td>
+      <td style="width:15%">{{$mail->created_at}}</td>
+      <td style="width:10%">
+            {{ Form::open(['method' => 'DELETE', 'route' => ['admin.contact.destroy', $mail->id]]) }}
                 {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
             {{ Form::close() }}
         </td>

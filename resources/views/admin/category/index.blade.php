@@ -15,14 +15,13 @@
 		</div>
 		<div class="posts-list-bottom">
 
-			<form id="delete-form" class="pull-left" action="{{ route('category.delete', $category->id) }}" method="post">
-					{{ csrf_field() }}
-					<button type="submit" class="btn btn-default btn-sm">Delete</button>
-			</form>
+      {{ Form::open(['method' => 'DELETE', 'route' => ['category.destroy', $category->id], 'class'=>'form_delete']) }}
+          {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) }}
+      {{ Form::close() }}
 
-			<a href="{{ url('/admin/category/edit/'.$category->id) }}">
-				<button type="button" class="btn btn-default btn-sm">Edit</button>
-			</a>
+      <a href="{{ route('category.edit', $category->id) }}">
+        <button type="button" class="btn btn-default btn-sm">Edit</button>
+      </a>
 
 		</div>
 		<hr>

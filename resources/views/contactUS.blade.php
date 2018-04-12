@@ -13,7 +13,7 @@
       @endif
 
 
-      {!! Form::open(['route'=>'contact_us.store']) !!}
+      {!! Form::open(['method'=>'post', 'route'=>'contact.store']) !!}
 
         <div class="form-group {{ $errors->has('last_name') ? 'has-error' : '' }}">
           {!! Form::label('Last Name:') !!}

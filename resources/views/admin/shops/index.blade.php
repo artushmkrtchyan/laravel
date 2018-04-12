@@ -19,16 +19,15 @@
 		</div>
 		<div class="shops-list-bottom">
 
-			<form id="delete-form" class="pull-left" action="{{ route('shops.delete', $shop->id) }}" method="post">
-					{{ csrf_field() }}
-					<button type="submit" class="btn btn-default btn-sm">Delete</button>
-			</form>
+      {{ Form::open(['method' => 'DELETE', 'route' => ['shops.destroy', $shop->id], 'class'=>'form_delete']) }}
+          {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) }}
+      {{ Form::close() }}
 
-			<a href="{{ url('/admin/shops/edit/'.$shop->id) }}">
+			<a href="{{ route('shops.edit', $shop->id) }}">
 				<button type="button" class="btn btn-default btn-sm">Edit</button>
 			</a>
 
-			<a href="{{ url('/admin/shops/'.$shop->id) }}">
+			<a href="{{ route('shops.show', $shop->id) }}">
 				<button type="button" class="btn btn-default btn-sm">Viwe</button>
 			</a>
 

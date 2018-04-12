@@ -7,14 +7,14 @@
     <div class="panel-heading">Add product</div>
 
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('product.create') }}">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('admin.product.store') }}">
+          {{ method_field('post') }}
             {{ csrf_field() }}
-
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <label for="name" class="col-md-2 control-label">Name</label>
 
                 <div class="col-md-9">
-                    <input id="name" type="text" class="form-control" name="name" value="" autofocus>
+                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name', isset($request->name) ? $request->name : '' ) }}" autofocus>
 
                     @if ($errors->has('name'))
                         <span class="help-block">
@@ -28,7 +28,7 @@
                 <label for="content" class="col-md-2 control-label">description</label>
 
                 <div class="col-md-9">
-                    <textarea rows="7" cols="50" class="form-control" name="description" autofocus></textarea>
+                    <textarea rows="7" cols="50" class="form-control" name="description" autofocus>{{ old('description', isset($request->description) ? $request->description : '' ) }}</textarea>
                     @if ($errors->has('description'))
                         <span class="help-block">
                             <strong>{{ $errors->first('description') }}</strong>

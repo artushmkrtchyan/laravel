@@ -23,15 +23,8 @@ class ProductsController extends Controller
       if(count($products) >= 1){
         return view('admin.products.index', compact('products'));
       }else{
-        return Redirect::to('/admin/products/create');
+        return Redirect::to(route('admin.product.create'));
       }
-    }
-
-    public function createForm()
-    {
-        $shops = Shop::all();
-
-        return view('admin.products.create', compact('shops'));
     }
 
     /**
@@ -39,16 +32,28 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
+    {
+        $shops = Shop::all();
+        return view('admin.products.create', compact('shops'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
       $validator = Validator::make($request->all(), [
-          'name' => 'required|string',
+          'name' => 'required',
           'description' => 'required',
       ]);
 
       if ($validator->fails()) {
         $shops = Shop::all();
-        return view('admin.products.create', compact('shops'))->withErrors($validator);
+        return view('admin.products.create', compact('shops', 'request'))->withErrors($validator);
       }
 
       $filename = 'no.png';
@@ -75,18 +80,7 @@ class ProductsController extends Controller
       $shops = $request->input('shop');
       $product->shops()->sync($shops);
 
-      return Redirect::to('/admin/product/create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+      return Redirect::to(route('admin.product.create'));
     }
 
     /**
@@ -111,9 +105,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
       $product = Product::find($id);
-
       $shops = Shop::all();
-
       return view('admin.products.edit', compact('product', 'shops'));
     }
 
@@ -133,7 +125,7 @@ class ProductsController extends Controller
       ]);
 
       if ($validator->fails()) {
-        
+
         $product = Product::find($id);
         $shops = Shop::all();
         return view('admin.products.edit', compact('product', 'shops'))->withErrors($validator);
@@ -170,7 +162,7 @@ class ProductsController extends Controller
 
       $product->shops()->sync($shops);
 
-      return Redirect::to('/admin/product');
+      return Redirect::to(route('admin.product.index'));
     }
 
     /**
@@ -192,6 +184,6 @@ class ProductsController extends Controller
 
       $product->shops()->sync([]);
 
-      return Redirect::to('/admin/product');
+      return Redirect::to(route('admin.product.index'));
     }
 }

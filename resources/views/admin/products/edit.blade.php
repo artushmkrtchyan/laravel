@@ -8,9 +8,9 @@
     <div class="panel-heading">Edit product</div>
 
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('product.update', $product->id) }}">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('admin.product.update', $product->id) }}">
+            {{ method_field('PUT') }}
             {{ csrf_field() }}
-
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <label for="name" class="col-md-2 control-label">Name</label>
 

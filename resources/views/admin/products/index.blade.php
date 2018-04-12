@@ -10,7 +10,7 @@
     	  <img src="{{ Storage::url('/uploads/products/'.$product->image) }}" class="media-object" style="width:300px">
     	</div>
 			<div class="media-body">
-        <a href="{{ route('product.show', $product->id ) }}">
+        <a href="{{ route('admin.product.show', $product->id ) }}">
             <h4 class="media-heading">{{ $product->name }}</h4>
             <p class="teaser">
                {{  $product->description }}
@@ -20,16 +20,15 @@
 		</div>
 		<div class="product-list-bottom">
 
-			<form id="delete-form" class="pull-left" action="{{ route('product.delete', $product->id) }}" method="post">
-					{{ csrf_field() }}
-					<button type="submit" class="btn btn-default btn-sm">Delete</button>
-			</form>
+      {{ Form::open(['method' => 'DELETE', 'route' => ['admin.product.destroy', $product->id], 'class'=>'form_delete']) }}
+          {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) }}
+      {{ Form::close() }}
 
-			<a href="{{ url('/admin/product/edit/'.$product->id) }}">
+			<a href="{{ route('admin.product.edit', $product->id) }}">
 				<button type="button" class="btn btn-default btn-sm">Edit</button>
 			</a>
 
-			<a href="{{ url('/admin/product/'.$product->id) }}">
+			<a href="{{ route('admin.product.show', $product->id) }}">
 				<button type="button" class="btn btn-default btn-sm">Viwe</button>
 			</a>
 

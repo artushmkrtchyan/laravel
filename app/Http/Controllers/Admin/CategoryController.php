@@ -32,7 +32,7 @@ class CategoryController extends Controller
       if(count($categories) > 1){
         return view('admin.category.index', compact('categories'));
       }else{
-        return Redirect::to('/admin/category/create');
+        return Redirect::to(route('category.create'));
       }
     }
 
@@ -50,8 +50,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $request = app('request');
+      $categories = Categories::all();
 
+      return view('admin.category.create', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         $category = Categories::create([
           'name' => $request->input('name'),
           'slug' => $request->input('slug'),
@@ -65,18 +76,7 @@ class CategoryController extends Controller
           'order' => $request->input('order'),
         ]);
 
-        return Redirect::to('/admin/category/create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+          return Redirect::to(route('category.index'));
     }
 
     /**
@@ -132,7 +132,7 @@ class CategoryController extends Controller
 
       DB::table('category_taxonomy')->where('category_id', $id)->update(['parent' => $parent, 'order' => $order]);
 
-      return Redirect::to('/admin/category');
+      return Redirect::to(route('category.index'));
     }
 
     /**
@@ -150,6 +150,6 @@ class CategoryController extends Controller
       $category_taxonomy = CategoryTaxonomy::where('category_id', $id);
       $category_taxonomy->delete();
 
-      return Redirect::to('/admin/category');
+      return Redirect::to(route('category.index'));
     }
 }
