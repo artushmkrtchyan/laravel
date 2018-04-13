@@ -28,7 +28,12 @@ class PostController extends Controller
         return view('admin.posts.index', compact('posts'));
     }
 
-    public function createForm()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         $categories = Categories::all();
 
@@ -36,11 +41,12 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
@@ -86,18 +92,7 @@ class PostController extends Controller
           }
         }
 
-        return Redirect::to('/admin/posts/create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return Redirect::to(route('admin.posts'));
     }
 
     /**
@@ -202,7 +197,7 @@ class PostController extends Controller
         }
       }
 
-      return Redirect::to('/admin/posts');
+      return Redirect::to(route('admin.posts'));
     }
 
     /**
@@ -225,6 +220,6 @@ class PostController extends Controller
       $delete = CategoryPost::where('post_id', $id);
       $delete->delete();
 
-      return Redirect::to('/admin/posts');
+      return Redirect::to(route('admin.posts'));
     }
 }

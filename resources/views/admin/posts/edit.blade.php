@@ -8,7 +8,7 @@
     <div class="panel-heading">Edit posts</div>
 
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('post.update', $post->id) }}">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('admin.post.update', $post->id) }}">
             {{ csrf_field() }}
 
             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

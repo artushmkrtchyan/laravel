@@ -7,7 +7,7 @@
     <div class="panel-heading">Add posts</div>
 
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('posts.create') }}">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="{{ route('admin.posts.create') }}">
             {{ csrf_field() }}
 
             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

@@ -25,6 +25,8 @@ Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallba
 
 Route::resource('contact-us', 'ContactUSController', ['names' =>['index' => 'contact.index', 'store' => 'contact.store']]);
 
+Route::resource('post', 'PostController', ['names' =>['index' => 'post.index', 'shoe' => 'post.show']]);
+
 Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin'], function(){
 
   Route::get('/', 'DashboardController@index')->name('dashboard');
@@ -34,13 +36,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin
   Route::post('users/edit/{id}', ['uses' => 'UsersController@update', 'as' => 'users.edit']);
   Route::post('users/delete/{id}', ['uses' => 'UsersController@destroy', 'as' => 'users.delete']);
 
-  Route::get('posts', 'PostController@index')->name('posts');
-  Route::get('posts/create', 'PostController@createForm')->name('posts-create');
-  Route::post('posts/create', ['uses' => 'PostController@create', 'as' => 'posts.create']);
-  Route::get('post/{id}', ['uses' => 'PostController@show', 'as' => 'post.show']);
-  Route::get('post/edit/{id}', ['uses' => 'PostController@edit']);
-  Route::post('post/edit/{id}', ['uses' => 'PostController@update', 'as' => 'post.update']);
-  Route::post('post/delete/{id}', ['uses' => 'PostController@destroy', 'as' => 'post.delete']);
+  Route::get('posts', 'PostController@index')->name('admin.posts');
+  Route::get('posts/create', 'PostController@create')->name('admin.posts.create');
+  Route::post('posts/create', ['uses' => 'PostController@store', 'as' => 'admin.posts.store']);
+  Route::get('posts/{id}', ['uses' => 'PostController@show', 'as' => 'admin.post.show']);
+  Route::get('posts/edit/{id}', 'PostController@edit')->name('admin.post.edit');
+  Route::post('posts/edit/{id}', ['uses' => 'PostController@update', 'as' => 'admin.post.update']);
+  Route::post('posts/delete/{id}', ['uses' => 'PostController@destroy', 'as' => 'admin.post.delete']);
 
   Route::resource('product', 'ProductsController', ['names' =>[
       'index' => 'admin.product.index',

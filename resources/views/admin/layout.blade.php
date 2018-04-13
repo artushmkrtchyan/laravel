@@ -75,8 +75,8 @@
                                 <li><a hef="{{ route('dashboard') }}"><i class="fa fa-home"></i> Home </a></li>
                                 <li class="open_down"><a><i class="fa fa-edit"></i> Posts <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="{{ route('posts-create') }}">Add New Post</a></li>
-                                        <li><a href="{{ route('posts') }}">Posts list</a></li>
+                                        <li><a href="{{ route('admin.posts.create') }}">Add New Post</a></li>
+                                        <li><a href="{{ route('admin.posts') }}">Posts list</a></li>
                                         <li><a href="{{ route('category.create') }}">Add new Category</a></li>
                                         <li><a href="{{ route('category.index') }}">Categories</a></li>
                                     </ul>
