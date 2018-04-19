@@ -62,4 +62,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin
 
   Route::resource('contact-us', 'ContactUSController', ['names' =>['index' => 'admin.contact.index', 'destroy' => 'admin.contact.destroy']]);
 
+  Route::resource('genre', 'GenreController');
+
+  Route::resource('film', 'FilmController');
+
 });

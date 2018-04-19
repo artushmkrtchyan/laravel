@@ -76,8 +76,18 @@
         </nav>
         @yield('content')
 
-        <footer style="height:70px; background-color:#333">
-            Laravel
+        <footer class="clearfix">
+          <div class="container">
+            <div class="col-md-3">
+              <div class="footer-logo">
+                <img src="{{ asset('image/footer-logo.png') }}" />
+              </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-3">
+            </div>
+          </div>
         </footer>
 
     </div>

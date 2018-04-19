@@ -206,6 +206,16 @@ select#shop option {
   margin-right: 5px;
 }
 
+
+td.index-buttun {
+  text-align: right;
+}
+
+.index-buttun form {
+  float: right;
+  margin-left: 5px;
+}
+
 @media (min-width: 768px){
   .form-horizontal .control-label {
       padding-top: 0;
