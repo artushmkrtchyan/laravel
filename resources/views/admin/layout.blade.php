@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }} Admin Panel</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin/main.css') }}" rel="stylesheet">
 
@@ -129,6 +130,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="{{ asset('js/admin/main.js') }}"></script>
 </body>
 </html>

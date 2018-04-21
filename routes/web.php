@@ -66,4 +66,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin
 
   Route::resource('film', 'FilmController');
 
+  Route::resource('actor', 'ActorController');
+
 });

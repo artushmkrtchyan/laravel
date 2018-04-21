@@ -6,4 +6,10 @@ $(document).ready(function() {
       $(this).find('.child_menu').addClass('open');
     }
   })
+
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      'formatDate': 'd.m.Y'
+    });
+  });
 })
