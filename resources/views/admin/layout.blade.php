@@ -88,6 +88,8 @@
                                         <li><a href="{{ route('film.index') }}">Film list</a></li>
                                         <li><a href="{{ route('genre.create') }}">Add new Genre</a></li>
                                         <li><a href="{{ route('genre.index') }}">Genre list</a></li>
+                                        <li><a href="{{ route('actor.create') }}">Add new Actor</a></li>
+                                        <li><a href="{{ route('actor.index') }}">Actor list</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{{ route('users') }}"><i class="fa fa-users"></i> Users </a></li>

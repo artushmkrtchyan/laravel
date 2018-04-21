@@ -149,6 +149,15 @@ class ActorController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $actor = Actor::findOrFail($id);
+
+      if($actor->image){
+        $uploadsFolder =  'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'actors';
+        Storage::delete($uploadsFolder."/".$actor->image);
+      }
+
+      $actor->delete();
+
+      return Redirect::to(route('actor.index'));
     }
 }
