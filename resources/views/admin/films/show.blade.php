@@ -14,7 +14,7 @@
       <span class ="col-md-3">{{ $film->created_at }}</span>
       <span class ="col-md-9">author: {{ $author->name }}</span>
     </p>
-	  <p>{{ $film->description }}</p>
+	  <p>{!! html_entity_decode($film->description) !!}</p>
 	</div>
 </div>
 

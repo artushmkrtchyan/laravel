@@ -58,6 +58,17 @@
               @endforeach
           </div>
 
+          <div class='form-group'>
+              @foreach ($actors as $actor)
+                <?php $checked = ''; ?>
+                @foreach($film->actors as $item)
+                  <?php if($item->id == $actor->id ){ $checked = true; }  ?>
+                @endforeach
+                {{ Form::label('Actor', $actor->name) }}
+                {{ Form::checkbox('actors[]', $actor->id, $checked) }}
+              @endforeach
+          </div>
+
           <div class="form-group">
             <button class="btn btn-success">Edit film</button>
           </div>

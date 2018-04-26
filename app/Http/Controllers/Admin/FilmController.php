@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Film;
 use App\Models\Genre;
+use App\Models\Actor;
 use App\Models\User;
 use Auth;
 
@@ -39,7 +40,9 @@ class FilmController extends Controller
     {
         $genres = Genre::all();
 
-        return view('admin.films.create', compact('genres'));
+        $actors = Actor::all();
+
+        return view('admin.films.create', compact('genres', 'actors'));
     }
 
     /**
@@ -117,8 +120,9 @@ class FilmController extends Controller
     {
         $genres = Genre::all();
         $film = Film::findOrFail($id);
+        $actors = Actor::all();
 
-        return view('admin.films.edit', compact('genres', 'film'));
+        return view('admin.films.edit', compact('genres', 'film', 'actors'));
     }
 
     /**
@@ -171,7 +175,9 @@ class FilmController extends Controller
        $film->save();
 
        $genres = $request->input('genres');
+       $actors = $request->input('actors');
        $film->genres()->sync($genres);
+       $film->actors()->sync($actors);
 
        return Redirect::to(route('film.index'));
     }

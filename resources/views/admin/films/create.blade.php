@@ -53,6 +53,13 @@
                 @endforeach
             </div>
 
+            <div class='form-group'>
+                @foreach ($actors as $actor)
+                  {{ Form::label('Actor', $actor->name) }}
+                  {{ Form::checkbox('actors[]', $actor->id) }}
+                @endforeach
+            </div>
+
             <div class="form-group">
               <button class="btn btn-success">Add film</button>
             </div>

@@ -13,7 +13,7 @@
         <a href="{{ route('film.show', $film->id ) }}">
             <h4 class="media-heading">{{ $film->title }}</h4>
             <p class="teaser">
-               {{  str_limit($film->description, 100) }}
+               {!! html_entity_decode(str_limit($film->description, 100)) !!}
             </p>
             <p class="teaser">
                {{ $film->status }}
