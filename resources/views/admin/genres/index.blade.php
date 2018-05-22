@@ -22,7 +22,7 @@
     				<button type="button" class="btn btn-default btn-sm">Edit</button>
     			</a>
     			<a href="{{ route('genre.show', $genre->id) }}">
-    				<button type="button" class="btn btn-default btn-sm">Viwe</button>
+    				<button type="button" class="btn btn-default btn-sm">View</button>
     			</a>
           {{ Form::open(['method' => 'DELETE', 'route' => ['genre.destroy', $genre->id]]) }}
               {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) }}

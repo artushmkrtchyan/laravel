@@ -29,7 +29,7 @@
     </a>
 
     <a href="{{ route('actor.show', $actor->id) }}">
-      <button type="button" class="btn btn-default btn-sm">Viwe</button>
+      <button type="button" class="btn btn-default btn-sm">View</button>
     </a>
 
   </div>

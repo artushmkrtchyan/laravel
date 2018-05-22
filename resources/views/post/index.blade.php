@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Account page title...')
+@section('title', 'Post page title...')
 
 @section('content')
 <div class="index-content">

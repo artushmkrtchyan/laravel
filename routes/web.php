@@ -25,7 +25,9 @@ Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallba
 
 Route::resource('contact-us', 'ContactUSController', ['names' =>['index' => 'contact.index', 'store' => 'contact.store']]);
 
-Route::resource('post', 'PostController', ['names' =>['index' => 'post.index', 'shoe' => 'post.show']]);
+Route::resource('post', 'PostController', ['names' =>['index' => 'post.index', 'show' => 'post.show']]);
+
+Route::resource('film', 'FilmController', ['names' =>['index' => 'views.film.index', 'show' => 'views.film.show']]);
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin'], function(){
 

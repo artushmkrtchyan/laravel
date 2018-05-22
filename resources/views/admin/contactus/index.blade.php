@@ -23,7 +23,7 @@
       <td style="width:15%">{{$mail->created_at}}</td>
       <td style="width:10%">
             {{ Form::open(['method' => 'DELETE', 'route' => ['admin.contact.destroy', $mail->id]]) }}
-                {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                {{ Form::submit('Delete', ['class' => 'btn btn-danger', "data-toggle" => "confirmation"]) }}
             {{ Form::close() }}
         </td>
     </tr>
