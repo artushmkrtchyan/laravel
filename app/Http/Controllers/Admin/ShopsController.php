@@ -58,7 +58,7 @@ class ShopsController extends Controller
      */
     public function show($id)
     {
-      $shop = Shop::find($id);
+      $shop = Shop::findOrFail($id);
 
       return view('admin.shops.show', compact('shop'));
     }

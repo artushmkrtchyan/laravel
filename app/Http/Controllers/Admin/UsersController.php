@@ -54,7 +54,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-      $user = User::findOrNew($id);
+      $user = User::findOrFail($id);
 
       return view('admin.users.show', compact('user'));
     }

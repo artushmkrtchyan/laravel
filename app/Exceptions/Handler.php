@@ -54,6 +54,11 @@ class Handler extends ExceptionHandler
     {
 
         if(strpos($request->path(), 'api/v1/') === false){
+
+          if($exception instanceof NotFoundHttpException)
+          { dd("9999999999");
+              return response()->view('missing', [], 404);
+          }
           return parent::render($request, $exception);
         }
         // This will replace our 404 response with

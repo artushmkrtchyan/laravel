@@ -18,7 +18,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         $author = User::find($post->author_id);
 

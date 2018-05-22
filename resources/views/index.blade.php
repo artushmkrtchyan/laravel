@@ -15,6 +15,7 @@
                 <div class="links">
                     <a href="{{ route('post.index') }}">Posts</a>
 					          <a href="{{ route('account') }}">Account</a>
+                    <a href="{{ route('views.film.index') }}">Films</a>
                 </div>
             </div>
         </div>
