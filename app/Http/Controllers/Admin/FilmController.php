@@ -93,6 +93,7 @@ class FilmController extends Controller
               ]);
 
       $film->genres()->sync($request->input('genres'));
+      $film->actors()->sync($request->input('actors'));
 
       return Redirect::to(route('film.index'));
     }
@@ -200,6 +201,7 @@ class FilmController extends Controller
       $film->delete();
 
       $film->genres()->sync([]);
+      $film->actors()->sync([]);
 
       return Redirect::to(route('film.index'));
     }

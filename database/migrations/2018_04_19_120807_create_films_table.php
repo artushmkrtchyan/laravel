@@ -19,7 +19,7 @@ class CreateFilmsTable extends Migration
             $table->longText('description')->nullable();
             $table->integer('year')->nullable();
             $table->string('youtube_id')->nullable();
-            $table->string('vidio_embed')->nullable();
+            $table->text('vidio_embed')->nullable();
             $table->bigInteger('author_id')->nullable();
             $table->string('status', 20)->default('no-publish');
             $table->string('image')->nullable();

@@ -27,6 +27,7 @@ Route::resource('contact-us', 'ContactUSController', ['names' =>['index' => 'con
 
 Route::resource('post', 'PostController', ['names' =>['index' => 'post.index', 'show' => 'post.show']]);
 
+Route::post('film/filter','FilmController@filter')->name('film.filter');
 Route::resource('film', 'FilmController', ['names' =>['index' => 'views.film.index', 'show' => 'views.film.show']]);
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin','namespace' => 'Admin'], function(){

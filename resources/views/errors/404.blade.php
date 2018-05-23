@@ -4,6 +4,6 @@
 
 @section('content')
     <div class="container">
-      <h1>The page does not exist</h1>
+      <h1>Sorry, Page Not Found</h1>
     </div>
 @stop

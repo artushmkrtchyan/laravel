@@ -167,6 +167,19 @@ footer {
 	height: 100%;
 }
 
+.film .filter select {
+  width: 100%;
+  height: 30px;
+}
+
+.film .filter option {
+  height: 30px;
+}
+
+.film .filter button {
+  margin-top: 26px;
+}
+
 @media (max-width: 768px) {
 
     .index-content .col-lg-4 {
