@@ -10,26 +10,16 @@
           <form action="{{ route('film.filter') }}" method="post">
             {!! csrf_field() !!}
             <div class="col-md-4">
-                <label for="genre">Genre</label>
-                <select id="genre" name="genre">
-                    <option value="">All</option>
-                    @foreach ($genres as $genre)
-                        <option value="{!! $genre->id !!}">{!! $genre->name !!}</option>
-                    @endforeach
-                </select>
+                {{ Form::label('Genre') }}
+                {{Form::select("genre", $genres)}}
             </div>
             <div class="col-md-4">
-                <label for="actor">Actor</label>
-                <select id="actor" name="actor">
-                    <option value="">All</option>
-                    @foreach ($actors as $actor)
-                        <option value="{!! $actor->id !!}">{!! $actor->name !!}</option>
-                    @endforeach
-                </select>
+                {{ Form::label('Actor') }}
+                {{Form::select("actor", $actors)}}
             </div>
             <div class="col-md-2">
-                {{ Form::label('year') }}
-                {{ Form::selectYear('year', 1950, date("Y"), ['class' => 'form-control']) }}
+                {{ Form::label('Year') }}
+                {{ Form::select('year', ['0' => 'All'] + array_combine(range(1990, date("Y")), range(1990, date("Y")))) }}
             </div>
             <div class="col-md-2">
               <button type="submit" class="btn btn-primary btn-sm">Submit</button>
@@ -46,7 +36,7 @@
 		                    <img src="{{ Storage::url('/uploads/films/'.$film->image) }}" class="media-object">
 											</div>
 	                    <h4>{{ $film->title }}</h4>
-	                    <p>{{  str_limit($film->description, 100) }}</p>
+	                    <p>{!! str_limit($film->description, 100) !!}</p>
 	                    <a href="{{ route('views.film.show', $film->id) }}" class="blue-button">Read More</a>
 	                </div>
 	            </div>

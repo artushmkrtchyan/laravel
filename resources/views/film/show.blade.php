@@ -15,7 +15,7 @@
 						<p>
 							<span class ="date">Year: {{ $film->year }}</span>
 						</p>
-						<p>{{  $film->description }}</p>
+						<p>{!! $film->description !!}</p>
 				</div>
 		</div>
 		<div class="row">

@@ -13,7 +13,7 @@
 								<span class ="author">author: {{ $author->name }}</span>
 							</p>
 							<img src="{{ Storage::url('/uploads/posts/'.$post->image) }}" class="media-object">
-							<p>{{  $post->content }}</p>
+							<p>{!! $post->content !!}</p>
 					</div>
 				</div>
 		</div>

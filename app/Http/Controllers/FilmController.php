@@ -16,8 +16,17 @@ class FilmController extends Controller
     {
       $films = Film::orderby('id', 'desc')->paginate(12);
 
-      $genres = Genre::all();
-      $actors = Actor::all();
+      $genres_res = Genre::all('name', 'id');
+      $genres[0] = "All";
+      foreach ($genres_res as  $genre) {
+        $genres[$genre->id] = $genre->name;
+      }
+
+      $actors_res = Actor::all('name', 'id');
+      $actors[0] = "All";
+      foreach ($actors_res as  $actor) {
+        $actors[$actor->id] = $actor->name;
+      }
 
       return view('film.index', compact('films', 'genres', 'actors'));
     }
@@ -34,22 +43,51 @@ class FilmController extends Controller
       $this->genre_id = $request->input('genre');
       $year = $request->input('year');
 
-      $films = Film::whereHas('actors', function($a) {
-          $a->where('actor_id', $this->actor_id);
-      })->whereHas('genres', function($g) {
-          $g->where('genre_id', $this->genre_id);
-      })->where('year', $year)->paginate(12);
+      if($this->actor_id && $this->genre_id && $year){
+        $films = Film::whereHas('actors', function($a) {
+            $a->where('actor_id', $this->actor_id);
+        })->whereHas('genres', function($g) {
+            $g->where('genre_id', $this->genre_id);
+        })->where('year', $year)->orderby('id', 'desc')->paginate(12);
+      }elseif ($this->actor_id && $this->genre_id && !$year) {
+        $films = Film::whereHas('actors', function($a) {
+            $a->where('actor_id', $this->actor_id);
+        })->whereHas('genres', function($g) {
+            $g->where('genre_id', $this->genre_id);
+        })->orderby('id', 'desc')->paginate(12);
+      }elseif ($this->actor_id && !$this->genre_id && !$year) {
+        $films = Film::whereHas('actors', function($a) {
+            $a->where('actor_id', $this->actor_id);
+        })->orderby('id', 'desc')->paginate(12);
+      }elseif (!$this->actor_id && $this->genre_id && !$year) {
+        $films = Film::whereHas('genres', function($g) {
+            $g->where('genre_id', $this->genre_id);
+        })->orderby('id', 'desc')->paginate(12);
+      }elseif (!$this->actor_id && $this->genre_id && $year) {
+        $films = Film::whereHas('genres', function($g) {
+            $g->where('genre_id', $this->genre_id);
+        })->where('year', $year)->orderby('id', 'desc')->paginate(12);
+      }elseif ($this->actor_id && !$this->genre_id && $year) {
+        $films = Film::whereHas('actors', function($a) {
+            $a->where('actor_id', $this->actor_id);
+        })->where('year', $year)->orderby('id', 'desc')->paginate(12);
+      }elseif (!$this->actor_id && !$this->genre_id && $year) {
+        $films = Film::where('year', $year)->orderby('id', 'desc')->paginate(12);
+      }else{
+        $films = Film::orderby('id', 'desc')->paginate(12);
+      }
 
-      // foreach ($films as $film) {
-      //   echo '<pre>';
-      //    print_r($film->title);
-      //    echo '</pre>';
-      // }
-      //
-      // dd($films);
+      $genres_res = Genre::all('name', 'id');
+      $genres[0] = "All";
+      foreach ($genres_res as  $genre) {
+        $genres[$genre->id] = $genre->name;
+      }
 
-      $genres = Genre::all();
-      $actors = Actor::all();
+      $actors_res = Actor::all('name', 'id');
+      $actors[0] = "All";
+      foreach ($actors_res as  $actor) {
+        $actors[$actor->id] = $actor->name;
+      }
 
       return view('film.index', compact('films', 'genres', 'actors'));
     }

@@ -13,7 +13,7 @@
 		                    <img src="{{ Storage::url('/uploads/posts/'.$post->image) }}" class="media-object">
 											</div>
 	                    <h4>{{ $post->title }}</h4>
-	                    <p>{{  str_limit($post->content, 100) }}</p>
+	                    <p>{!! str_limit($post->content, 100) !!}</p>
 	                    <a href="{{ route('post.show', $post->id) }}" class="blue-button">Read More</a>
 	                </div>
 	            </div>
