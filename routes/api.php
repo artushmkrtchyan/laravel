@@ -36,6 +36,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function()
     Route::get('products', 'ProductController@index');
     Route::get('products/{id}', 'ProductController@show');
     Route::get('category', 'CategoryController@index');
+    Route::resource('films', 'FilmController');
+
 
     Route::group(['middleware' => 'auth:api'], function(){
     	Route::post('details', 'AuthController@details');
