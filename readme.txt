@@ -1,12 +1,16 @@
 Installation
-1. git clone https://github.com/artushmkrtchyan/laravel.git
-2. composer install
-3. save the .env.example to .env
-4. update the .env file with your db credentials
-5. php artisan key:generate
-6. php artisan migrate (php artisan migrate:refresh --seed)
-7. php artisan storage:link
-8. Login social:
+$ git clone https://github.com/artushmkrtchyan/laravel.git
+$ composer install
+ 	save the .env.example to .env
+	update the .env file with your db credentials
+$ php artisan key:generate
+$ php artisan migrate 
+	or
+$ php artisan migrate:refresh --seed
+$ php artisan storage:link
+$ php artisan passport:install
+
+Login social:
   Set the keys you got after registering your app in your .env file:
 
   TWITTER_ID=
@@ -29,4 +33,3 @@ URL
 4.https://medium.com/@ezp127/laravel-5-4-native-user-authentication-role-authorization-3dbae4049c8a
 5.https://scotch.io/tutorials/laravel-social-authentication-with-socialite
 
-passport version number (4.0.3)
